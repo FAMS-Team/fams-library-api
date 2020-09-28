@@ -19,7 +19,9 @@
   },
   "homepage": "https://github.com/FAMS-Team/fams-library-api#readme",
   "dependencies": {
-    "express": "^4.17.1"
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "pg": "^8.3.3"
   },
   "devDependencies": {
     "nodemon": "^2.0.4"
