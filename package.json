@@ -1,0 +1,27 @@
+{
+  "name": "fams-library-api",
+  "version": "1.0.0",
+  "description": "REST API for the FAMS's Library Frontend",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon src/index.js",
+    "start": "node src/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/FAMS-Team/fams-library-api.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/FAMS-Team/fams-library-api/issues"
+  },
+  "homepage": "https://github.com/FAMS-Team/fams-library-api#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.4"
+  }
+}
