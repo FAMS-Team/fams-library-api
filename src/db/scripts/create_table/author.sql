@@ -1,0 +1,8 @@
+CREATE TABLE Author(
+	ID_Author SERIAL PRIMARY KEY,
+	Name VARCHAR(30) NOT NULL,
+	Last_Name VARCHAR(30) NOT NULL,
+	Date_Birth DATE NOT NULL,
+	Date_Death DATE NULL,
+	Description TEXT NOT NULL
+)

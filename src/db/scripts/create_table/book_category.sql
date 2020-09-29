@@ -1,0 +1,4 @@
+CREATE TABLE BookCategory(
+	ID_BookCategory SERIAL PRIMARY KEY,
+	Name VARCHAR(50) NOT NULL
+)

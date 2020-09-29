@@ -1,0 +1,4 @@
+CREATE TABLE Country (
+	ID_Country SERIAL PRIMARY KEY,
+	Name VARCHAR(30) NOT NULL
+)

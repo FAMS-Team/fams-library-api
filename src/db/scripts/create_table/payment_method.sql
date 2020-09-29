@@ -1,0 +1,4 @@
+CREATE TABLE PaymentMethod(
+	ID_PaymentMethod SERIAL PRIMARY KEY,
+	Method VARCHAR(20) NOT NULL
+)

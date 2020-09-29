@@ -1,0 +1,4 @@
+CREATE TABLE Series(
+	ID_Series SERIAL PRIMARY KEY,
+	Name VARCHAR(20)
+)

@@ -1,0 +1,4 @@
+CREATE TABLE Publisher(
+	ID_Publisher SERIAL PRIMARY KEY,
+	Name VARCHAR(30) NOT NULL
+)

@@ -1,0 +1,5 @@
+CREATE TABLE Book_Author(
+	ID_Book_Author SERIAL PRIMARY KEY,
+	ID_Author INT REFERENCES Author(ID_Author) NOT NULL,
+	ID_Book INT REFERENCES Book(ID_Book) NOT NULL
+)
