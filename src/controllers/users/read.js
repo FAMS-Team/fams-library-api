@@ -14,7 +14,7 @@ const user = (req, res)=>{
             res.status(500).json({error : 'Could not validate token.'});
         }
         else{
-            res.status(400).send(data);
+            res.status(200).send(data);
         }
     })
 }
