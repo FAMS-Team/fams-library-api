@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const db = require('../db/postgres');
 const login = require('../controllers/users/login');
 const logout = require('../controllers/users/logout');
 const readUser = require('../controllers/users/read');

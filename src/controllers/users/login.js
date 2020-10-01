@@ -11,8 +11,35 @@ function validateFields(email, password){
     }
 }
 
+const login = async (req, res) => {
+    try{
+        const email = req.body.email;
+        const password = req.body.password;
+        const result = await db.query('SELECT * FROM Contact WHERE Email = $1', [email]);
+        const user = result.rows[0];
+        if(result.rowCount === 0){
+            res.status(400).send({error: 'No user found.'});
+        }
+        else{
+            const session = await db.query('SELECT * FROM Session WHERE ID_Contact = $1', [user.id_contact]);
+            if (await bcrypt.compare(password, user.password) && session.rowCount === 0){
+                const userToken = jwt.sign(user, process.env.SECRET_KEY);
+                db.query('INSERT INTO Session (ID_Contact, Token) VALUES ($1, $2)', [user.id_contact, userToken]);
+                res.status(200).send(userToken);
+            }
+            else if (session.rowCount === 1){
+                res.status(400).send({error: 'User already logged in.'});
+            }
+            else{
+                res.status(400).send({error: 'Invalid password.'});
+            }
+        }
+    } catch(error){
+        res.status(500).send({error: 'Internal server error.'});
+    }
+}
+/*
 const login = async (req, res, next) => {
-
 
         let email = req.body.email;
         let password = req.body.password;
@@ -63,6 +90,6 @@ const login = async (req, res, next) => {
             }
         } 
 }
-
+*/
 module.exports = login;
 
