@@ -15,7 +15,7 @@ const insertBookAuthor = `
 
 const insertBookPublisher = `
 	INSERT INTO
-		publisher_book (id_publisher, id_book)
+		publisher_book (id_book, id_publisher)
 	VALUES
 		($1, $2)
 	RETURNING id_publisher_book;
@@ -23,9 +23,35 @@ const insertBookPublisher = `
 
 const insertBookEdition = `
 	INSERT INTO 
-		bookedition (id_publisher_book, edition, page_number, isbn, price, image_link, book_link)
+		bookedition (edition, page_number, isbn, price, image_link, book_link, id_publisher_book)
 	VALUES
 		($1, $2, $3, $4, $5, $6, $7);
+`;
+
+const selectBookInnerJoin = `
+	SELECT
+		B.title, B.subtitle, B.description, B.publication_date, BSC.name, BC.name, S.name, 
+		A.name, A.last_name, P.name, BE.edition, BE.page_number, BE.isbn, BE.price, 
+		BE.image_link, BE.book_link
+	FROM
+		book AS B
+		INNER JOIN booksubcategory AS BSC
+			ON BSC.id_booksubcategory = B.id_booksubcategory
+		INNER JOIN bookcategory AS BC
+			ON BC.id_bookcategory = BSC.id_booksubcategory
+		INNER JOIN series AS S
+			ON B.id_series = S.id_series
+		INNER JOIN book_author AS BA
+			ON BA.id_book = B.id_book
+		INNER JOIN author AS A
+			ON A.id_author = BA.id_author
+		INNER JOIN publisher_book AS PB
+			ON PB.id_book = B.id_book
+		INNER JOIN publisher AS P
+			ON P.id_publisher = PB.id_publisher
+		INNER JOIN bookedition AS BE
+			ON BE.id_publisher_book = PB.id_publisher_book
+		WHERE B.id_book = $1;
 `;
 
 module.exports = {
@@ -33,4 +59,5 @@ module.exports = {
   insertBookAuthor,
   insertBookPublisher,
   insertBookEdition,
+  selectBookInnerJoin,
 };

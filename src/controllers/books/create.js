@@ -19,20 +19,20 @@ const createBook = async (req, res) => {
     await db.query(queries.insertBookAuthor, [book.authorID, bookID]);
 
     result = await db.query(queries.insertBookPublisher, [
-      book.publisherID,
       bookID,
+      book.publisherID,
     ]);
 
     const publisherBookID = result.rows[0].id_publisher_book;
 
     await db.query(queries.insertBookEdition, [
-      publisherBookID,
       book.edition,
       book.pageNumber,
       book.isbn,
       book.price,
       book.imageLink,
       book.bookLink,
+      publisherBookID,
     ]);
 
     res.status(201).send();
