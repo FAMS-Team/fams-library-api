@@ -6,7 +6,7 @@ const createBook = require("../controllers/books/create");
 const readBookByID = require("../controllers/books/read");
 
 // Routes
-router.post("/books", createBook);
-router.get("/books/:id", readBookByID);
+router.post("/create", createBook);
+router.get("/:id", readBookByID);
 
 module.exports = router;

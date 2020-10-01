@@ -10,8 +10,8 @@ const PORT = process.env.PORT || 3000;
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-app.use("/v1", countryRouter);
-app.use("/v1", bookRouter);
+app.use("/country", countryRouter);
+app.use("/book", bookRouter);
 app.use("/user", userRouter);
 
 app.listen(PORT, () => {
