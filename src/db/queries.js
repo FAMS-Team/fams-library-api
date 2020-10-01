@@ -1,13 +1,13 @@
 const insertBook = `
-	INSERT INTO 
-		book (id_booksubcategory,id_series,title,subtitle,publication_date,description) 
-	VALUES 
+	INSERT INTO
+		book (id_booksubcategory,id_series,title,subtitle,publication_date,description)
+	VALUES
 		($1,$2,$3,$4,$5,$6)
 	RETURNING id_book;
 	`;
 
 const insertBookAuthor = `
-	INSERT INTO 
+	INSERT INTO
 		book_author (id_author, id_book)
 	VALUES
 		($1, $2);
@@ -22,7 +22,7 @@ const insertBookPublisher = `
 `;
 
 const insertBookEdition = `
-	INSERT INTO 
+	INSERT INTO
 		bookedition (edition, page_number, isbn, price, image_link, book_link, id_publisher_book)
 	VALUES
 		($1, $2, $3, $4, $5, $6, $7);
@@ -30,8 +30,8 @@ const insertBookEdition = `
 
 const selectBookInnerJoin = `
 	SELECT
-		B.title, B.subtitle, B.description, B.publication_date, BSC.name, BC.name, S.name, 
-		A.name, A.last_name, P.name, BE.edition, BE.page_number, BE.isbn, BE.price, 
+		B.title, B.subtitle, B.description, B.publication_date, BSC.name, BC.name, S.name,
+		A.name, A.last_name, P.name, BE.edition, BE.page_number, BE.isbn, BE.price,
 		BE.image_link, BE.book_link
 	FROM
 		book AS B
@@ -54,10 +54,33 @@ const selectBookInnerJoin = `
 		WHERE B.id_book = $1;
 `;
 
+const deleteBookEdition = `
+	DELETE FROM bookedition WHERE id_publisher_book IN
+		(SELECT id_publisher_book FROM publisher_book WHERE id_book = $1)
+`;
+
+const deletePublisherBook = `
+	DELETE FROM publisher_book WHERE id_book = $1
+`;
+
+const deleteBookAuthor = `
+	DELETE FROM book_author WHERE id_book = $1
+`;
+
+const deleteBook = `
+	DELETE FROM book WHERE id_book = $1
+`;
+
+
+
 module.exports = {
   insertBook,
   insertBookAuthor,
   insertBookPublisher,
   insertBookEdition,
   selectBookInnerJoin,
+	deleteBookEdition,
+	deletePublisherBook,
+	deleteBookAuthor,
+	deleteBook
 };
