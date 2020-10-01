@@ -1,19 +1,19 @@
 const express = require("express");
-const jwt = require('jsonwebtoken');
-const db = require("./db/postgres");
-const util = require('./routes/util');
-const user = require('./routes/user');
-const bodyParser = require('body-parser');
+const bodyParser = require("body-parser");
+const userRouter = require("./routes/user");
+const bookRouter = require("./routes/books");
+const countryRouter = require("./routes/countries");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-app.use(bodyParser.urlencoded({extended:true}));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-app.use('/', util);
-app.use('/user', user);
+app.use("/v1", countryRouter);
+app.use("/v1", bookRouter);
+app.use("/user", userRouter);
 
 app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}; http://localhost:${PORT}/`);
+  console.log(`Server running on port ${PORT}`);
 });
