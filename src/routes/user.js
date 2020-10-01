@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const login = require('../controllers/users/login');
+const logout = require('../controllers/users/logout');
 const readUser = require('../controllers/users/read');
 
 function verifyToken(req, res, next) {
@@ -18,6 +19,7 @@ function verifyToken(req, res, next) {
 
 router.post('/login', login);
 router.post('/get', verifyToken, readUser);
+router.post('/logout', verifyToken, logout);
 
 module.exports = router;
     
