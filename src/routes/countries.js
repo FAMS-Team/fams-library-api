@@ -1,10 +1,10 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
 
 // Controllers
-const countries = require('../controllers/countries/read');
+const countries = require("../controllers/countries/read");
 
 // Routes
-router.get('/get', countries);
+router.get("/countries", countries);
 
 module.exports = router;
