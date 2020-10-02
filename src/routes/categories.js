@@ -2,9 +2,9 @@ const express = require("express");
 const router = express.Router();
 
 // Controllers
-const categories = require("../controllers/categories/read");
+const getCategories = require("../controllers/categories/read");
 
 // Routes
-router.get("/categories", categories);
+router.get("/categories", getCategories);
 
 module.exports = router;

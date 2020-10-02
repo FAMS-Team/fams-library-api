@@ -1,7 +1,7 @@
 const db = require('../../db/postgres');
 const queries = require('../../db/queries');
 
-const categories = async (req, res) => {
+const getCategories = async (req, res) => {
     try{
         const result = await db.query(queries.selectAllCategories);
 
@@ -26,4 +26,4 @@ const categories = async (req, res) => {
     }
 }
 
-module.exports = categories;
+module.exports = getCategories;

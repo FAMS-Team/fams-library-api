@@ -157,6 +157,10 @@ const selectAllCountries = `
 	SELECT * FROM Country ORDER BY Name
 `;
 
+const selectAllPayments = `
+	SELECT * FROM paymentmethod ORDER BY method
+`;
+
 module.exports = {
   insertBook,
   insertBookAuthor,
@@ -169,5 +173,8 @@ module.exports = {
 	deleteBookAuthor,
 	deleteBook,
 	selectAllCountries,
-	selectAllCategories
+	selectAllCategories,
+	selectAllBooksWithoutBookLink,
+	selectBookInnerJoinWithoutBookLink,
+	selectAllPayments
 };

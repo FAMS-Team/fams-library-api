@@ -2,9 +2,9 @@ const express = require("express");
 const router = express.Router();
 
 // Controllers
-const getCountries = require("../controllers/countries/read");
+const getPaymentMethods = require("../controllers/payments/read");
 
 // Routes
-router.get("/countries", getCountries);
+router.get("/payments", getPaymentMethods);
 
 module.exports = router;
