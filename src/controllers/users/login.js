@@ -1,40 +1,34 @@
 const db = require('../../db/postgres');
+const queries = require("../../db/queries_user");
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 require("dotenv").config();
 
+
 const login = async (req, res) => {
-        
     try{
-        let email = req.body.email;
-        let password = req.body.password;
-
-        if(!email || !password){
-            res.status(200).send({err: 'Invalid fields.'});
-        }
-
-        const text = 'SELECT * FROM Contact WHERE Email = $1';
-        const values = [email];
-        const result = await db.query(text, values);
+        const {email, password} = req.body;
+        const result = await db.query(queries.getUserFromEmail, [email]);
         const user = result.rows[0];
-        bcrypt.compare(password, user.password, (err, result) => {
-            if (err){
-                res.status(500).send({error: 'Internal server error.'});
-            }
-            if (result){
-                //res.status(200).send(user)
-                userToken = jwt.sign(user, process.env.SECRET_KEY);
-                res.status(200).send(userToken);
+
+        if (await bcrypt.compare(password, user.password)){
+            const accessToken = jwt.sign(user, process.env.ACCESS_KEY, {expiresIn: '30m'});
+            const refreshToken = jwt.sign(user, process.env.REFRESH_KEY);
+            const session = await db.query(queries.getRefreshTokenFromContact, [user.id_contact]);
+            if (session.rowCount > 0){
+                await db.query(queries.updateRefreshToken, [refreshToken, user.id_contact]);
             }
             else{
-                res.status(400).send({error: 'Wrong password.'});
+                await db.query(queries.insertRefreshToken, [user.id_contact, refreshToken]);
             }
-        });
+            res.status(200).send({accessToken, refreshToken});
+        }
+        else{
+            res.status(400).send({error: 'Invalid username or password.'});
+        }
+    } catch(error){
+        res.status(500).send({error: error.stack});
     }
-    catch (err) {
-        res.status(500).json({error: err.stack});
-    }
-    
 }
 
 module.exports = login;
