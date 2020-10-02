@@ -3,10 +3,11 @@ const router = express.Router();
 
 // Controllers
 const createBook = require("../controllers/books/create");
-const readBookByID = require("../controllers/books/read");
+const { getBookByID, getBooks } = require("../controllers/books/read");
 
 // Routes
 router.post("/books", createBook);
-router.get("/books/:id", readBookByID);
+router.get("/books/:id", getBookByID);
+router.get("/books", getBooks);
 
 module.exports = router;
