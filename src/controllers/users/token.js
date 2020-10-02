@@ -1,4 +1,5 @@
 const db = require('../../db/postgres');
+const queries = require("../../db/queries_user");
 const jwt = require('jsonwebtoken');
 
 const generateToken = async (req, res) => {
@@ -10,7 +11,7 @@ const generateToken = async (req, res) => {
     }
 
     try{
-        const result = await db.query('SELECT RefreshToken FROM Session WHERE RefreshToken = $1', [token]);
+        const result = await db.query(queries.getRefreshTokenFromToken, [token]);
         if (!result){
             return res.sendStatus(403);
         }

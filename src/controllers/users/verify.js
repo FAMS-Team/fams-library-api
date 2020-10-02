@@ -1,6 +1,3 @@
-const { JsonWebTokenError } = require("jsonwebtoken");
-
-const db = require('../../db/postgres');
 const jwt = require('jsonwebtoken');
 
 const authenticateToken = (req, res, next) => {
