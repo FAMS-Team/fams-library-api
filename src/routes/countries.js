@@ -5,6 +5,6 @@ const router = express.Router();
 const countries = require('../controllers/countries/read');
 
 // Routes
-router.get('/', countries);
+router.get('/get', countries);
 
 module.exports = router;
