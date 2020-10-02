@@ -8,9 +8,9 @@ const getUser = require("../controllers/users/read");
 const refreshToken = require("../controllers/users/token");
 const authenticate = require("../controllers/users/verify");
 
-router.post("users/login", login);
-router.post("users/get", authenticate, getUser);
-router.post("users/logout", logout);
-router.post("users/token", refreshToken);
+router.post("/users/login", login);
+router.post("/users/get", authenticate, getUser);
+router.post("/users/logout", logout);
+router.post("/users/token", refreshToken);
 
 module.exports = router;
