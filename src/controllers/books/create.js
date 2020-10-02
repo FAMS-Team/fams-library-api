@@ -3,41 +3,46 @@ const queries = require("../../db/queries");
 
 const createBook = async (req, res) => {
   const book = new Book(req.body);
+  const type = req.user.id_contacttype;
+  if(type !== 1){
+    res.sendStatus(403);
+  }
+  else{
+    try {
+      let result = await db.query(queries.insertBook, [
+        book.subCategoryID,
+        book.seriesID,
+        book.title,
+        book.subTitle,
+        book.publicationDate,
+        book.description,
+      ]);
 
-  try {
-    let result = await db.query(queries.insertBook, [
-      book.subCategoryID,
-      book.seriesID,
-      book.title,
-      book.subTitle,
-      book.publicationDate,
-      book.description,
-    ]);
+      const bookID = result.rows[0].id_book;
 
-    const bookID = result.rows[0].id_book;
+      await db.query(queries.insertBookAuthor, [book.authorID, bookID]);
 
-    await db.query(queries.insertBookAuthor, [book.authorID, bookID]);
+      result = await db.query(queries.insertBookPublisher, [
+        bookID,
+        book.publisherID,
+      ]);
 
-    result = await db.query(queries.insertBookPublisher, [
-      bookID,
-      book.publisherID,
-    ]);
+      const publisherBookID = result.rows[0].id_publisher_book;
 
-    const publisherBookID = result.rows[0].id_publisher_book;
+      await db.query(queries.insertBookEdition, [
+        book.edition,
+        book.pageNumber,
+        book.isbn,
+        book.price,
+        book.imageLink,
+        book.bookLink,
+        publisherBookID,
+      ]);
 
-    await db.query(queries.insertBookEdition, [
-      book.edition,
-      book.pageNumber,
-      book.isbn,
-      book.price,
-      book.imageLink,
-      book.bookLink,
-      publisherBookID,
-    ]);
-
-    res.status(201).send();
-  } catch (err) {
-    res.status(400).send(err);
+      res.status(201).send();
+    } catch (err) {
+      res.status(400).send(err);
+    }
   }
 };
 
