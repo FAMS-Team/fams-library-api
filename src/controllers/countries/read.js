@@ -1,8 +1,9 @@
 const db = require('../../db/postgres');
+const queries = require('../../db/queries');
 
 const countries = async (req, res) => {
     try{
-        const result = await db.query('SELECT * FROM Country ORDER BY Name');
+        const result = await db.query(queries.selectAllCountries);
         res.status(200).json(result.rows);
     }
     catch (err) {

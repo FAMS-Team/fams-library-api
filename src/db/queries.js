@@ -56,8 +56,8 @@ const selectBookInnerJoin = `
 
 const selectAllBooks = `
 	SELECT
-		B.title, B.subtitle, B.description, B.publication_date, BSC.name, BC.name, S.name, 
-		A.name, A.last_name, P.name, BE.edition, BE.page_number, BE.isbn, BE.price, 
+		B.title, B.subtitle, B.description, B.publication_date, BSC.name, BC.name, S.name,
+		A.name, A.last_name, P.name, BE.edition, BE.page_number, BE.isbn, BE.price,
 		BE.image_link, BE.book_link
 	FROM
 		book AS B
@@ -96,7 +96,15 @@ const deleteBook = `
 	DELETE FROM book WHERE id_book = $1
 `;
 
+const selectAllCategories = `
+	SELECT C.Name AS Category, S.ID_BookSubcategory, C.ID_BookCategory, S.Name AS Subcategory
+		FROM BookCategory AS C
+		INNER JOIN BookSubcategory AS S ON C.ID_BookCategory = S.ID_BookCategory
+`;
 
+const selectAllCountries = `
+	SELECT * FROM Country ORDER BY Name
+`;
 
 module.exports = {
   insertBook,
@@ -108,5 +116,7 @@ module.exports = {
 	deleteBookEdition,
 	deletePublisherBook,
 	deleteBookAuthor,
-	deleteBook
+	deleteBook,
+	selectAllCountries,
+	selectAllCategories
 };

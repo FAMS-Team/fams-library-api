@@ -1,9 +1,10 @@
 const db = require('../../db/postgres');
+const queries = require('../../db/queries');
 
 const categories = async (req, res) => {
     try{
-        const result = await db.query('SELECT C.Name AS Category, S.ID_BookSubcategory, C.ID_BookCategory, S.Name AS Subcategory FROM BookCategory AS C INNER JOIN BookSubcategory AS S ON C.ID_BookCategory = S.ID_BookCategory');
-        
+        const result = await db.query(queries.selectAllCategories);
+
         //Arranges result in nested json
         const cats = [];
         let category = result.rows[0];
