@@ -1,6 +1,5 @@
 const db = require('../../db/postgres');
 const jwt = require('jsonwebtoken');
-require("dotenv").config();
 
 const user = async (req, res)=>{
     try{

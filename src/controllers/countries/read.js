@@ -1,7 +1,7 @@
 const db = require('../../db/postgres');
 const queries = require('../../db/queries');
 
-const countries = async (req, res) => {
+const getCountries = async (req, res) => {
     try{
         const result = await db.query(queries.selectAllCountries);
         res.status(200).json(result.rows);
@@ -11,4 +11,4 @@ const countries = async (req, res) => {
     }
 }
 
-module.exports = countries;
+module.exports = getCountries;
