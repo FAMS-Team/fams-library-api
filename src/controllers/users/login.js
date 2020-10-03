@@ -1,5 +1,5 @@
 const db = require('../../db/postgres');
-const queries = require("../../db/queries_user");
+const queries = require("../../db/scripts/queries/queries_user");
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 require("dotenv").config();

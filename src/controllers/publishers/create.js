@@ -1,5 +1,5 @@
 const db = require('../../db/postgres');
-const queries = require('../../db/queries_publisher');
+const queries = require('../../db/scripts/queries/queries_publisher');
 
 const createPublisher = async (req, res) => {
     const {name, country} = req.body;

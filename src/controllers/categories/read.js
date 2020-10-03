@@ -1,5 +1,5 @@
 const db = require('../../db/postgres');
-const queries = require('../../db/queries_category');
+const queries = require('../../db/scripts/queries/queries_category');
 
 const getCategories = async (req, res) => {
     try{

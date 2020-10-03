@@ -1,5 +1,5 @@
 const db = require('../../db/postgres');
-const queries = require('../../db/queries_country');
+const queries = require('../../db/scripts/queries/queries_country');
 
 const getCountries = async (req, res) => {
     try{

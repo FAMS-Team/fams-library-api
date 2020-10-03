@@ -1,6 +1,6 @@
 const db = require("../../db/postgres");
-const queries = require("../../db/queries_reservation");
-const date = require("../../db/queries_date");
+const queries = require("../../db/scripts/queries/queries_reservation");
+const date = require("../../db/scripts/queries/queries_date");
 
 const createReservation = async (req, res) => {
   const reservation = new Reservation(req.body);

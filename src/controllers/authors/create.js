@@ -1,5 +1,5 @@
 const db = require('../../db/postgres');
-const queries = require('../../db/queries_author');
+const queries = require('../../db/scripts/queries/queries_author');
 
 const createAuthor = async (req, res) => {
     const {name, lastname, date_birth, date_death, description, country} = req.body;

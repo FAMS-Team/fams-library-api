@@ -1,7 +1,7 @@
 const db = require('../../db/postgres');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
-const queries = require('../../db/queries_user');
+const queries = require('../../db/scripts/queries/queries_user');
 require("dotenv").config();
 
 const register = async (req, res) => {

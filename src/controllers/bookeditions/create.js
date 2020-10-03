@@ -1,5 +1,5 @@
 const db = require("../../db/postgres");
-const queries = require("../../db/queries_bookedition");
+const queries = require("../../db/scripts/queries/queries_bookedition");
 
 const createBookEdition = async (req,res) => {
   const bookEdition = new BookEdition(req.body);
