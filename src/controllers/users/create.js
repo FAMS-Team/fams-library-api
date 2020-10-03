@@ -1,36 +1,59 @@
 const db = require('../../db/postgres');
 const jwt = require('jsonwebtoken');
+const bcrypt = require('bcrypt');
+const queries = require('../../db/queries_user');
 require("dotenv").config();
 
-const signup = async (req, res) => {
-    if (!req.token){
-        res.status(403);
+const register = async (req, res) => {
+
+    const {token, name, lastname, email, phone, usertype} = req.body;
+    let password = req.body.password;
+    
+    try{
+        password = await bcrypt.hash(password, 8)
+    } catch(err){
+        return res.status(500).send(err);
+    }
+    
+    let insertUserQuery = queries.insertUserNoPhone;
+    let values = [name, lastname, email, password];
+    
+    if (!name || !lastname || !email || !password){
+        return res.status(400).json({error : 'Insufficient details provided.'});
     }
 
-    let user = {};
-    jwt.verify(req.token, process.env.SECRET_KEY, (err, data) => {
-        if (err){
-            res.status(500).json({error : 'Could not validate token.'});
+    if(usertype){
+        if(!(usertype > 0 && usertype < 4)){
+            return res.status(400).send({error: 'Invalid user type.'});
+        }
+    }
+
+    if(token){
+        const user = jwt.verify(token, process.env.ACCESS_KEY);
+        if (!phone && user.id_contacttype == 1 && usertype){
+            values = [usertype, name, lastname, email, password];
+            insertUserQuery = queries.insertAdminNoPhone;
+        }
+        if (phone && user.id_contacttype == 1 && usertype){
+            values = [usertype, name, lastname, email, phone, password];
+            insertUserQuery = queries.insertAdminPhone;
         }
         else{
-            user = data;
+            return res.sendStatus(403);
         }
-    })
-
-    if (!user.name || !user.lastname || !user.email || !user.password){
-        res.status(500).json({error : 'Insufficient details provided.'});
     }
-
+    else if(phone){
+        values = [name, lastname, email, phone, password];
+        insertUserQuery = queries.insertUserPhone;
+    }
+    
     try{
-        const text = 'INSERT INTO Contact(ID_ContactType, Name, Last_Name, Email, Password) VALUES(2, $1, $2, $3, $4) RETURNING *';
-        const values = [user.name, user.lastname, user.email, user.password];
-        const result = await db.query(text, values);
-        userToken = jwt.sign(result.rows[0], process.env.SECRET_KEY, {expiresIn: '1h'});
-        res.status(400).send(userToken);
+        const result = await db.query(insertUserQuery, values);
+        res.status(400).send({message: "Registration successful."});
     }
     catch (err) {
         res.status(500).send(err);
     }
 }
 
-module.exports = signup;
+module.exports = register;
