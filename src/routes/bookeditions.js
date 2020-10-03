@@ -8,5 +8,4 @@ const createBookEdition = require("../controllers/bookeditions/create");
 // Routes
 router.post("/bookeditions", verifyUser, createBookEdition);
 
-
 module.exports = router;

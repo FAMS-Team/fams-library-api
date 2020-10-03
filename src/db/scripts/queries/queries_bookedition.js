@@ -13,7 +13,17 @@ const insertBookPublisher = `
 	RETURNING id_publisher_book;
 `;
 
+const selectIDPublisherBook = `
+  SELECT id_publisher_book FROM
+    publisher_book
+    WHERE
+    id_book = $1
+    AND
+    id_publisher = $2
+`;
+
 module.exports = {
   insertBookEdition,
-  insertBookPublisher
+  insertBookPublisher,
+	selectIDPublisherBook
 };
