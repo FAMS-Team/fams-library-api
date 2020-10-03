@@ -43,7 +43,7 @@ const register = async (req, res) => {
     
     try{
         const result = await db.query(insertUserQuery, values);
-        res.status(400).send({message: "Registration successful."});
+        res.status(200).send({message: "Registration successful."});
     }
     catch (err) {
         res.status(500).send(err);
