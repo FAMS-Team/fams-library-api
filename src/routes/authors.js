@@ -8,6 +8,6 @@ const authenticate = require("../controllers/users/verify");
 
 // Routes
 router.get("/authors", getAuthors);
-router.post("/authors/create", authenticate, createAuthor);
+router.post("/authors", authenticate, createAuthor);
 
 module.exports = router;

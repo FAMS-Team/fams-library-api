@@ -7,6 +7,6 @@ const router = express.Router();
 const createReservation = require("../controllers/reservations/create");
 
 //Routes
-router.post("/reservations", verifyUser,createReservation);
+router.post("/reservations", verifyUser, createReservation);
 
 module.exports = router;

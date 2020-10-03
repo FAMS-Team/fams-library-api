@@ -10,8 +10,8 @@ const register = require('../controllers/users/create');
 const authenticate = require("../controllers/users/verify");
 
 router.post("/users/login", login);
-router.post("/users/register", register);
-router.post("/users/get", authenticate, getUser);
+router.post("/users", register);
+router.get("/users", authenticate, getUser);
 router.post("/users/logout", logout);
 router.post("/users/token", refreshToken);
 

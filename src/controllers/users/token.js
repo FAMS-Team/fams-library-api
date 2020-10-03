@@ -15,14 +15,10 @@ const generateToken = async (req, res) => {
             return res.sendStatus(403);
         }
         else{
-            jwt.verify(token, process.env.REFRESH_KEY, (error, user) => {
-                if (error){
-                    return res.sendStatus(403);
-                }
-                const {id_contact, id_contacttype, name, last_name, date_register, phone, email, password} = user;
-                const accessToken = jwt.sign({id_contact, id_contacttype, name, last_name, date_register, phone, email, password}, process.env.ACCESS_KEY, {expiresIn: '30m'});
-                res.status(200).send({accessToken});
-            });
+            const user = jwt.verify(token, process.env.REFRESH_KEY);
+            const {id_contact, id_contacttype, name, last_name, date_register, phone, email, password} = user;
+            const accessToken = jwt.sign({id_contact, id_contacttype, name, last_name, date_register, phone, email, password}, process.env.ACCESS_KEY, {expiresIn: '30m'});
+            res.status(200).send({accessToken});
         }
     } catch(error){
         res.sendStatus(500);
