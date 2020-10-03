@@ -1,11 +1,12 @@
 const db = require("../../db/postgres");
-const queries = require("../../db/queries_book");
+const queries = require("../../db/queries_reservation");
+const date = require("../../db/queries_date");
 
 const createReservation = async (req, res) => {
   const reservation = new Reservation(req.body);
   const taxes = 0.03;
   try{
-    let result = await db.query(queries.selectDateNow);
+    let result = await db.query(date.selectDateNow);
     const dateNow = result.rows[0].now;
 
     result = await db.query(queries.insertReservation, [
@@ -21,9 +22,9 @@ const createReservation = async (req, res) => {
     ]);
     const price = result.rows[0].price
     tprice = price.replace('$','')
-    result = await db.query(queries.selectDate,[reservation.end_date]);
+    result = await db.query(date.selectDate,[reservation.end_date]);
     date = result.rows[0].to_date;
-    result = await db.query(queries.selectDifferenceBetweenTwoDates,[
+    result = await db.query(date.selectDifferenceBetweenTwoDates,[
       date,
       dateNow
     ]);
