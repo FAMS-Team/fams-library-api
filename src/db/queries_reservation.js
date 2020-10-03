@@ -19,8 +19,23 @@ const selectPriceFromBookEdition = `
 		WHERE id_bookedition = $1
 `;
 
+const selectReservationsFromUser = `
+	SELECT R.ID_Reservation, R.ID_Contact, B.Title, B.Subtitle, BE.Image_Link, BE.Book_Link, R.Start_Date, R.End_Date, RD.Total FROM Reservation AS R
+	INNER JOIN Reservation_Detail AS RD
+	ON RD.ID_Reservation = R.ID_Reservation
+	INNER JOIN BookEdition AS BE
+	ON BE.ID_BookEdition = RD.ID_BookEdition
+	INNER JOIN Publisher_Book AS PB
+	ON PB.ID_Publisher_Book = BE.ID_Publisher_Book
+	INNER JOIN Book AS B
+	ON PB.ID_Book = B.ID_Book
+	GROUP BY R.ID_Contact, R.ID_Reservation, B.Title, B.Subtitle, BE.Image_Link, BE.Book_Link, R.Start_Date, R.End_Date, RD.Total
+	HAVING R.ID_Contact = $1
+`
+
 module.exports = {
     insertReservation,
     insertReservationDetail,
-    selectPriceFromBookEdition
+	selectPriceFromBookEdition,
+	selectReservationsFromUser
 }

@@ -4,6 +4,8 @@ const date = require("../../db/queries_date");
 
 const createReservation = async (req, res) => {
   const reservation = new Reservation(req.body);
+  const {user} = req;
+  reservation.id_contact = user.id_contact;
   const taxes = 0.03;
   try{
     let result = await db.query(date.selectDateNow);
