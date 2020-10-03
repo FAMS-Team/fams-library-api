@@ -5,7 +5,6 @@ const jwt = require('jsonwebtoken');
 const generateToken = async (req, res) => {
     
     const {token} = req.body;
-    console.log(token);
     if (!token){
         return res.sendStatus(401);
     }
@@ -16,9 +15,14 @@ const generateToken = async (req, res) => {
             return res.sendStatus(403);
         }
         else{
-            const user = jwt.verify(token, process.env.REFRESH_KEY);
-            const accessToken = jwt.sign(user, process.env.ACCESS_KEY, {expiresIn: '30m'});
-            res.status(200).send({accessToken});
+            jwt.verify(token, process.env.REFRESH_KEY, (error, user) => {
+                if (error){
+                    return res.sendStatus(403);
+                }
+                const {id_contact, id_contacttype, name, last_name, date_register, phone, email, password} = user;
+                const accessToken = jwt.sign({id_contact, id_contacttype, name, last_name, date_register, phone, email, password}, process.env.ACCESS_KEY, {expiresIn: '30m'});
+                res.status(200).send({accessToken});
+            });
         }
     } catch(error){
         res.sendStatus(500);
