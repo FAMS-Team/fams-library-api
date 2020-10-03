@@ -1,5 +1,5 @@
 const db = require("../../db/postgres");
-const queries = require("../../db/queries")
+const queries = require("../../db/queries_book")
 
 const deleteBookByID = async (req, res) => {
   const type = req.user.id_contacttype;

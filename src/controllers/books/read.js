@@ -1,5 +1,5 @@
 const db = require("../../db/postgres");
-const queries = require("../../db/queries");
+const queries = require("../../db/queries_book");
 
 const getBookByID = async (req, res) => {
   const id = req.params.id;
