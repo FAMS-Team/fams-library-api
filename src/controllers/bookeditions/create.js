@@ -9,12 +9,22 @@ const createBookEdition = async (req,res) => {
   }
   else{
     try{
+      let publisherBookID;
+      try{
+        let result = await db.query(queries.selectIDPublisherBook, [
+          bookEdition.bookID,
+          bookEdition.publisherID
+        ]);
+        publisherBookID = result.rows[0].id_publisher_book
+    }
+    catch(err) {
       let result = await db.query(queries.insertBookPublisher, [
         bookEdition.bookID,
         bookEdition.publisherID
       ]);
-      console.log('1')
-      const publisherBookID = result.rows[0].id_publisher_book;
+      publisherBookID = result.rows[0].id_publisher_book;
+    }
+      console.log(publisherBookID)
       await db.query(queries.insertBookEdition, [
         bookEdition.edition,
         bookEdition.pageNumber,
