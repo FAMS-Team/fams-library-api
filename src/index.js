@@ -10,6 +10,7 @@ const paymentRouter = require("./routes/payments");
 const publisherRouter = require('./routes/publishers');
 const authorRouter = require('./routes/authors');
 const reservationRouter = require("./routes/reservations");
+const bookEditionRouter = require("./routes/bookeditions");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -25,6 +26,7 @@ app.use(paymentRouter);
 app.use(publisherRouter);
 app.use(authorRouter);
 app.use(reservationRouter);
+app.use(bookEditionRouter);
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);

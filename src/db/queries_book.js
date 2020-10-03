@@ -13,21 +13,6 @@ const insertBookAuthor = `
 		($1, $2);
 `;
 
-const insertBookPublisher = `
-	INSERT INTO
-		publisher_book (id_book, id_publisher)
-	VALUES
-		($1, $2)
-	RETURNING id_publisher_book;
-`;
-
-const insertBookEdition = `
-	INSERT INTO
-		bookedition (edition, page_number, isbn, price, image_link, book_link, id_publisher_book)
-	VALUES
-		($1, $2, $3, $4, $5, $6, $7);
-`;
-
 const selectBookInnerJoin = `
 	SELECT
 		B.title, B.subtitle, B.description, B.publication_date, BSC.name, BC.name, S.name,
@@ -150,8 +135,6 @@ const deleteBook = `
 module.exports = {
 	insertBook,
 	insertBookAuthor,
-	insertBookPublisher,
-	insertBookEdition,
 	selectBookInnerJoin,
 	selectAllBooks,
 	deleteBookEdition,
