@@ -147,34 +147,17 @@ const deleteBook = `
 	DELETE FROM book WHERE id_book = $1
 `;
 
-const selectAllCategories = `
-	SELECT C.Name AS Category, S.ID_BookSubcategory, C.ID_BookCategory, S.Name AS Subcategory
-		FROM BookCategory AS C
-		INNER JOIN BookSubcategory AS S ON C.ID_BookCategory = S.ID_BookCategory
-`;
-
-const selectAllCountries = `
-	SELECT * FROM Country ORDER BY Name
-`;
-
-const selectAllPayments = `
-	SELECT * FROM paymentmethod ORDER BY method
-`;
-
 module.exports = {
-  insertBook,
-  insertBookAuthor,
-  insertBookPublisher,
-  insertBookEdition,
-  selectBookInnerJoin,
-  selectAllBooks,
+	insertBook,
+	insertBookAuthor,
+	insertBookPublisher,
+	insertBookEdition,
+	selectBookInnerJoin,
+	selectAllBooks,
 	deleteBookEdition,
 	deletePublisherBook,
 	deleteBookAuthor,
 	deleteBook,
-	selectAllCountries,
-	selectAllCategories,
 	selectAllBooksWithoutBookLink,
-	selectBookInnerJoinWithoutBookLink,
-	selectAllPayments
+	selectBookInnerJoinWithoutBookLink
 };
