@@ -8,6 +8,7 @@ const countryRouter = require("./routes/countries");
 const categoryRouter = require("./routes/categories");
 const paymentRouter = require("./routes/payments");
 const publisherRouter = require('./routes/publishers');
+const authorRouter = require('./routes/authors');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -21,6 +22,7 @@ app.use(userRouter);
 app.use(categoryRouter);
 app.use(paymentRouter);
 app.use(publisherRouter);
+app.use(authorRouter);
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
