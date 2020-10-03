@@ -22,12 +22,6 @@ const register = async (req, res) => {
         return res.status(400).json({error : 'Insufficient details provided.'});
     }
 
-    if(usertype){
-        if(!(usertype > 0 && usertype < 4)){
-            return res.status(400).send({error: 'Invalid user type.'});
-        }
-    }
-
     if(token){
         const user = jwt.verify(token, process.env.ACCESS_KEY);
         if (!phone && user.id_contacttype == 1 && usertype){
