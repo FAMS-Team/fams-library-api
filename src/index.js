@@ -9,6 +9,7 @@ const categoryRouter = require("./routes/categories");
 const paymentRouter = require("./routes/payments");
 const publisherRouter = require('./routes/publishers');
 const authorRouter = require('./routes/authors');
+const reservationRouter = require("./routes/reservations");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -23,6 +24,7 @@ app.use(categoryRouter);
 app.use(paymentRouter);
 app.use(publisherRouter);
 app.use(authorRouter);
+app.use(reservationRouter);
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
