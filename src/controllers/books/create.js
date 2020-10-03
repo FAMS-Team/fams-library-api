@@ -22,23 +22,6 @@ const createBook = async (req, res) => {
 
       await db.query(queries.insertBookAuthor, [book.authorID, bookID]);
 
-      result = await db.query(queries.insertBookPublisher, [
-        bookID,
-        book.publisherID,
-      ]);
-
-      const publisherBookID = result.rows[0].id_publisher_book;
-
-      await db.query(queries.insertBookEdition, [
-        book.edition,
-        book.pageNumber,
-        book.isbn,
-        book.price,
-        book.imageLink,
-        book.bookLink,
-        publisherBookID,
-      ]);
-
       res.status(201).send();
     } catch (err) {
       res.status(400).send(err);
@@ -55,13 +38,6 @@ function Book(body) {
   this.categoryID = body.category_id;
   this.subCategoryID = body.sub_category_id;
   this.authorID = body.author_id;
-  this.publisherID = body.publisher_id;
-  this.edition = body.edition;
-  this.pageNumber = body.page_number;
-  this.isbn = body.isbn;
-  this.price = body.price;
-  this.imageLink = body.image_link;
-  this.bookLink = body.book_link;
 }
 
 module.exports = createBook;
