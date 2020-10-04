@@ -17,12 +17,13 @@ const createBook = async (req, res) => {
         book.publicationDate,
         book.description,
       ]);
-
       const bookID = result.rows[0].id_book;
-
-      await db.query(queries.insertBookAuthor, [book.authorID, bookID]);
-
-      res.status(201).send();
+      const authorID = book.authorID;
+      for (let i = 0; i < authorID.length; i++)
+      {
+        await db.query(queries.insertBookAuthor, [authorID[i], bookID]);
+      }
+      res.status(201).send("Success!");
     } catch (err) {
       res.status(400).send(err);
     }
