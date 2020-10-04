@@ -22,6 +22,18 @@ const selectIDPublisherBook = `
     id_publisher = $2
 `;
 
+const updateBookEdition = `
+	UPDATE bookedition SET
+		edition = $1,
+		page_number = $2,
+		isbn = $3,
+		price = $4,
+		image_link = $5,
+		book_link = $6,
+		id_publisher_book = $7
+	WHERE id_bookedition = $8
+`;
+
 module.exports = {
   insertBookEdition,
   insertBookPublisher,

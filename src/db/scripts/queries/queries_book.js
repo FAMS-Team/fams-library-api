@@ -132,6 +132,17 @@ const deleteBook = `
 	DELETE FROM book WHERE id_book = $1
 `;
 
+const updateBook = `
+	UPDATE book SET
+		id_booksubcategory = $1,
+		id_series = $2,
+		title = $3,
+		subtitle = $4,
+		publication_date = $5,
+		description = $6
+	WHERE id_book = $7
+`;
+
 module.exports = {
 	insertBook,
 	insertBookAuthor,
@@ -143,4 +154,5 @@ module.exports = {
 	deleteBook,
 	selectAllBooksWithoutBookLink,
 	selectBookInnerJoinWithoutBookLink,
+	updateBook
 };
