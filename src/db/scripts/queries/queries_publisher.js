@@ -1,5 +1,5 @@
 const selectAllPublishers = `
-    SELECT P.ID_Publisher, P.Name, C.Name FROM Publisher AS P
+    SELECT P.ID_Publisher, P.Name, C.Name AS Country FROM Publisher AS P
     INNER JOIN Country AS C
     ON P.ID_Country = C.ID_Country
     ORDER BY P.Name
