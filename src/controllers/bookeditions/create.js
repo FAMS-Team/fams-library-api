@@ -50,6 +50,6 @@ function BookEdition(body) {
   this.bookLink = body.book_link;
   this.publisherID = body.publisher_id;
   this.bookID = body.book_id;
-}
+};
 
 module.exports = createBookEdition;
