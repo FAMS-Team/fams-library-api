@@ -1,5 +1,8 @@
 const selectAllPublishers = `
-    SELECT * FROM Publisher ORDER BY Name
+    SELECT * FROM Publisher AS P
+    INNER JOIN Country AS C
+    ON P.ID_Country = C.ID_Country
+    ORDER BY Name
 `
 
 const insertPublisher = `

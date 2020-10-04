@@ -94,7 +94,7 @@ const selectAllBooksWithoutBookLink = `
 	SELECT
 		B.title, B.subtitle, B.description, B.publication_date, BSC.name, BC.name, S.name,
 		A.name, A.last_name, P.name, BE.edition, BE.page_number, BE.isbn, BE.price,
-		BE.image_link, BE.book_link
+		BE.image_link
 	FROM
 		book AS B
 		INNER JOIN booksubcategory AS BSC
