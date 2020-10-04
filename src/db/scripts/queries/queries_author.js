@@ -1,5 +1,8 @@
 const selectAllAuthors = `
-    SELECT * FROM Author ORDER BY Name
+    SELECT * FROM Author AS A
+    INNER JOIN Country AS C
+    ON A.ID_Country = C.ID_Country
+    ORDER BY A.Name
 `
 
 const insertAuthor = `

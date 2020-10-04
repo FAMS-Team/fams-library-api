@@ -1,7 +1,7 @@
 const db = require('../../db/postgres');
 const queries = require('../../db/scripts/queries/queries_reservation');
 
-const publishers = async (req, res) => {
+const reservations = async (req, res) => {
     try{
         const result = await db.query(queries.selectReservationsFromUser, [req.user.id_contact]);
         return res.status(200).json(result.rows);
@@ -10,4 +10,4 @@ const publishers = async (req, res) => {
     }   
 }
 
-module.exports = publishers;
+module.exports = reservations;
