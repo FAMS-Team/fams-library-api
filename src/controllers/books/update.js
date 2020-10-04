@@ -4,7 +4,7 @@ const queries = require("../../db/scripts/queries/queries_book");
 const updateBook = async (req, res) => {
   const book = new Book(req.body);
   const type = req.user.id_contacttype;
-  id(type !== 1){
+  if(type !== 1){
     res.sendStatus(403);
   }
   else{

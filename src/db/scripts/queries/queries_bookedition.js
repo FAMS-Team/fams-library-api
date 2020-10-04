@@ -37,5 +37,6 @@ const updateBookEdition = `
 module.exports = {
   insertBookEdition,
   insertBookPublisher,
-	selectIDPublisherBook
+	selectIDPublisherBook,
+	updateBookEdition
 };
