@@ -10,6 +10,6 @@ const authenticate = require("../controllers/users/verify");
 // Routes
 router.get("/authors", getAuthors);
 router.post("/authors", authenticate, createAuthor);
-router.post("/authors/:id", authenticate, updateAuthor);
+router.patch("/authors/:id", authenticate, updateAuthor);
 
 module.exports = router;
