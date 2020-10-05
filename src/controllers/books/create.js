@@ -23,7 +23,7 @@ const createBook = async (req, res) => {
       {
         await db.query(queries.insertBookAuthor, [authorID[i], bookID]);
       }
-      res.status(201).send("Success!");
+      res.status(201).send({message: "Book created successfully!"});
     } catch (err) {
       res.status(400).send(err);
     }

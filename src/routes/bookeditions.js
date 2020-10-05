@@ -9,7 +9,7 @@ const deleteBookEdition = require("../controllers/bookeditions/delete");
 
 // Routes
 router.post("/bookeditions", verifyUser, createBookEdition);
-router.post("/bookedition/update", verifyUser,updateBookEdition);
-router.delete("/bookedition/:id", verifyUser,deleteBookEdition);
+router.patch("/bookeditions/:id", verifyUser,updateBookEdition);
+router.delete("/bookeditions/:id", verifyUser,deleteBookEdition);
 
 module.exports = router;
