@@ -19,15 +19,15 @@ const updatePublisher = async (req, res) => {
     */
 
    try{
-    if(name){
-        await db.query(queries.updatePublisherName, [name, publisher]);
-    }
-    if(country){
-        await db.query(queries.updatePublisherCountry, [country, publisher]);
-    }
+        if(name){
+            await db.query(queries.updatePublisherName, [name, publisher]);
+        }
+        if(country){
+            await db.query(queries.updatePublisherCountry, [country, publisher]);
+        }
         //await db.query(queries.updatePublisher, [name, country, publisher]);
         return res.status(200).send({message: 'Publisher updated successfuly.'});
-        
+
     } catch (error){
         return res.status(500).send(error);
     }   
