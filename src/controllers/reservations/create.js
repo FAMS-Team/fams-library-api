@@ -41,7 +41,7 @@ const createReservation = async (req, res) => {
        tax,
        totalPrice
      ]);
-     res.status(200).send("Success!");
+     res.status(200).send({message: "Reservation successful!"});
   } catch (err) {
     res.status(400).send(err);
   }

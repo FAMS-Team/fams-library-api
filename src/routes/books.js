@@ -9,7 +9,7 @@ const deleteBookByID = require("../controllers/books/delete");
 const updateBook = require("../controllers/books/update")
 // Routes
 router.post("/books", verifyUser, createBook);
-router.post("/booksupdate",verifyUser,updateBook);
+router.patch("/books/:id",verifyUser, updateBook);
 router.get("/books/:id", getBookByID);
 router.get("/books", getBooks);
 router.delete("/books/:id", verifyUser, deleteBookByID);
