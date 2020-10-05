@@ -1,5 +1,13 @@
 const selectAllAuthors = `
-    SELECT * FROM Author AS A
+    SELECT 
+        A.ID_Author, 
+        A.Name, 
+        A.Last_Name,
+        A.Date_Birth,
+        A.Date_Death,
+        A.Description,
+        C.Name AS Country
+    FROM Author AS A
     INNER JOIN Country AS C
     ON A.ID_Country = C.ID_Country
     ORDER BY A.Name
