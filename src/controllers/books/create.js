@@ -32,13 +32,12 @@ const createBook = async (req, res) => {
 
 function Book(body) {
   this.title = body.title;
-  this.subTitle = body.sub_title;
+  this.subTitle = body.subtitle;
   this.description = body.description;
   this.publicationDate = body.publication_date;
-  this.seriesID = body.series_id;
-  this.categoryID = body.category_id;
-  this.subCategoryID = body.sub_category_id;
-  this.authorID = body.author_id;
+  this.seriesID = body.series;
+  this.subCategoryID = body.subcategory;
+  this.authorID = body.author;
 }
 
 module.exports = createBook;

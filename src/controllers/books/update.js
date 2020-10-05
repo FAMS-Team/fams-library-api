@@ -28,11 +28,11 @@ const updateBook = async (req, res) => {
 
 function Book(body) {
   this.title = body.title;
-  this.subTitle = body.sub_title;
+  this.subTitle = body.subtitle;
   this.description = body.description;
   this.publicationDate = body.publication_date;
-  this.seriesID = body.series_id;
-  this.subCategoryID = body.sub_category_id;
+  this.seriesID = body.series;
+  this.subCategoryID = body.subcategory;
   this.bookID = body.book_id;
 };
 
