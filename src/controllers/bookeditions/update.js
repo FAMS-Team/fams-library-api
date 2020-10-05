@@ -3,7 +3,7 @@ const queries = require("../../db/scripts/queries/queries_bookedition");
 
 const updateBookEdition = async (req, res) => {
   const bookEdition = new BookEdition(req.body);
-  bookEdition.bookEditionID = req.params.id;
+  bookEdition.bookEditionID = req.params.id_edition;
   const type = req.user.id_contacttype;
   if(type !== 1){
     res.sendStatus(403);
@@ -34,7 +34,7 @@ function BookEdition(body) {
   this.price = body.price;
   this.imageLink = body.image_link;
   this.bookLink = body.book_link;
-  this.publisherID = body.publisher_id;
+  this.publisherID = body.publisher;
   this.bookEditionID = body.book_edition_id;
 };
 

@@ -8,7 +8,7 @@ const deleteBookEditionByID = async (req, res) => {
   }
   else{
   try{
-    const id = req.params.id;
+    const id = req.params.id_edition;
     let result = await db.query(queries.deleteBookEditionByID,[id]);
     let publisherBookID;
     try{

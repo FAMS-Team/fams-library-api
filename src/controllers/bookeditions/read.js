@@ -2,7 +2,7 @@ const db = require("../../db/postgres");
 const queries = require("../../db/scripts/queries/queries_bookedition");
 
 const getBookEditionByID = async (req, res) => {
-  const id = req.params.id;
+  const id = req.params.id_edition;
 
   try{
     const result = await db.query(queries.selectBookEdition,[id]);
