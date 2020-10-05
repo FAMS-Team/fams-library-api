@@ -6,8 +6,10 @@ const router = express.Router();
 const createBookEdition = require("../controllers/bookeditions/create");
 const updateBookEdition = require("../controllers/bookeditions/update");
 const deleteBookEdition = require("../controllers/bookeditions/delete");
+const readBookEdition = require("../controllers/bookeditions/read")
 
 // Routes
+router.get("/bookedition/:id",readBookEdition);
 router.post("/bookeditions", verifyUser, createBookEdition);
 router.post("/bookedition/update", verifyUser,updateBookEdition);
 router.delete("/bookedition/:id", verifyUser,deleteBookEdition);
