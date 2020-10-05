@@ -34,9 +34,33 @@ const updateBookEdition = `
 	WHERE id_bookedition = $8
 `;
 
+const deleteBookEditionByID = `
+	DELETE FROM bookedition WHERE id_bookedition = $1 RETURNING id_publisher_book
+`;
+
+const selectBookPublisherInBookEdition = `
+	SELECT id_publisher_book
+		FROM bookedition
+		WHERE id_bookedition = $1
+`;
+
+const selectBookPublisherByID = `
+	SELECT COUNT(id_publisher_book)
+		FROM bookedition GROUP BY id_publisher_book
+		HAVING id_publisher_book = $1
+`;
+
+const deleteBookPublisherByID = `
+	DELETE FROM publisher_book WHERE id_publisher_book = $1
+`;
+
 module.exports = {
   insertBookEdition,
   insertBookPublisher,
 	selectIDPublisherBook,
-	updateBookEdition
+	updateBookEdition,
+	deleteBookEditionByID,
+	selectBookPublisherByID,
+	selectBookPublisherInBookEdition,
+	deleteBookPublisherByID
 };

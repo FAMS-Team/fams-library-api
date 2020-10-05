@@ -7,9 +7,7 @@ const deleteBookByID = async (req, res) => {
     res.sendStatus(403);
   }
   else{
-    console.log(type)
     const id = req.params.id;
-    console.log(id);
     try {
     await db.query(queries.deleteBookEdition, [id]);
 
