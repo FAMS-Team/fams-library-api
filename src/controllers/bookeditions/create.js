@@ -3,6 +3,7 @@ const queries = require("../../db/scripts/queries/queries_bookedition");
 
 const createBookEdition = async (req,res) => {
   const bookEdition = new BookEdition(req.body);
+  bookEdition.bookID = req.params.id_book
   const type = req.user.id_contacttype;
   if(type !== 1){
     res.sendStatus(403);
