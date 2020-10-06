@@ -26,7 +26,7 @@ const getBooks = async (req, res) => {
     res.status(500).send();
   }
 };
-
+/*
 const getEditionBooksWithoutBookLink = async (req,res) => {
   try {
     const id = req.params.id;
@@ -36,5 +36,6 @@ const getEditionBooksWithoutBookLink = async (req,res) => {
     res.status(500).send();
   }
 };
+*/
 
-module.exports = { getBookByID, getBooks,getEditionBooksWithoutBookLink};
+module.exports = { getBookByID, getBooks};
