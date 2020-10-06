@@ -19,6 +19,7 @@ const updatePublisher = async (req, res) => {
     */
 
    try{
+       await db.query('BEGIN');
         if(name){
             await db.query(queries.updatePublisherName, [name, publisher]);
         }
@@ -26,9 +27,11 @@ const updatePublisher = async (req, res) => {
             await db.query(queries.updatePublisherCountry, [country, publisher]);
         }
         //await db.query(queries.updatePublisher, [name, country, publisher]);
+        await db.query('COMMIT');
         return res.status(200).send({message: 'Publisher updated successfuly.'});
 
     } catch (error){
+        await db.query('ROLLBACK');
         return res.status(500).send(error);
     }   
 }

@@ -8,6 +8,7 @@ const createReservation = async (req, res) => {
   reservation.id_contact = user.id_contact;
   const taxes = 0.03;
   try{
+    await db.query('BEGIN');
     let result = await db.query(date.selectDateNow);
     const dateNow = result.rows[0].now;
 
@@ -41,8 +42,10 @@ const createReservation = async (req, res) => {
        tax,
        totalPrice
      ]);
+     await db.query('COMMIT');
      res.status(200).send({message: "Reservation successful!"});
   } catch (err) {
+    await db.query('ROLLBACK');
     res.status(400).send(err);
   }
 };

@@ -10,22 +10,22 @@ const createBookEdition = async (req,res) => {
   }
   else{
     try{
-      let publisherBookID;
-      try{
-        let result = await db.query(queries.selectIDPublisherBook, [
-          bookEdition.bookID,
-          bookEdition.publisherID
-        ]);
-        publisherBookID = result.rows[0].id_publisher_book
-    }
-    catch(err) {
-      let result = await db.query(queries.insertBookPublisher, [
+      await db.query('BEGIN');
+      let result = await db.query(queries.selectIDPublisherBook, [
         bookEdition.bookID,
         bookEdition.publisherID
       ]);
-      publisherBookID = result.rows[0].id_publisher_book;
-    }
+      let publisherBookID = result.rows[0].id_publisher_book
+
+      if (result.rowCount === 0){
+        result = await db.query(queries.insertBookPublisher, [
+          bookEdition.bookID,
+          bookEdition.publisherID
+        ]);
+        publisherBookID = result.rows[0].id_publisher_book;
+      }
       console.log(publisherBookID)
+
       await db.query(queries.insertBookEdition, [
         bookEdition.edition,
         bookEdition.pageNumber,
@@ -35,8 +35,10 @@ const createBookEdition = async (req,res) => {
         bookEdition.bookLink,
         publisherBookID,
       ]);
+      await db.query('COMMIT');
       res.status(201).send("Success!");
     } catch (err) {
+      await db.query('ROLLBACK');
       res.status(400).send(err);
     }
   }

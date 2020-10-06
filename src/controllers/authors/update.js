@@ -18,6 +18,8 @@ const updateAuthor = async (req, res) => {
     }
     */
     try{
+        await db.query('BEGIN');
+
         if (name){
             await db.query(queries.updateAuthorName, [name, author]);
         }
@@ -36,9 +38,12 @@ const updateAuthor = async (req, res) => {
         if (country){
             await db.query(queries.updateAuthorCountry, [country, author]);
         }
+
+        await db.query('COMMIT');
         //await db.query(queries.updateAuthor, [name, lastname, date_birth, date_death, description, country, author]);
         return res.status(200).send({message: 'Author updated successfuly.'});
     } catch (error){
+        await db.query('ROLLBACK');
         return res.status(500).send(error);
     }   
 }

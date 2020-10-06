@@ -16,7 +16,7 @@ const deleteBookByID = async (req, res) => {
     await db.query(queries.deleteBookAuthor,[id]);
 
     await db.query(queries.deleteBook,[id]);
-    res.status(200).send();
+    res.status(200).send({message: "Book deleted successfully."});
     } catch(err) {
     console.log(err);
     res.status(500).send(err);
