@@ -10,8 +10,13 @@ const selectDate = `
 	SELECT TO_DATE($1, 'YYYY/MM/DD')
 `;
 
+const selectCurrentDate = `
+    SELECT CURRENT_DATE
+`
+
 module.exports = {
     selectDifferenceBetweenTwoDates,
     selectDate,
-    selectDateNow
+    selectDateNow,
+    selectCurrentDate
 }

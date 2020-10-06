@@ -33,9 +33,16 @@ const selectReservationsFromUser = `
 	HAVING R.ID_Contact = $1
 `
 
+const selectReservationByUserAndBookEdition = `
+	SELECT * FROM Reservation
+	WHERE ID_Contact = $1 AND ID_Reservation = $2
+	ORDER BY Start_Date DESC
+`
+
 module.exports = {
     insertReservation,
     insertReservationDetail,
 	selectPriceFromBookEdition,
-	selectReservationsFromUser
+	selectReservationsFromUser,
+	selectReservationByUserAndBookEdition
 }

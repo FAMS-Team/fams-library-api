@@ -107,6 +107,17 @@ const selectBookEditionWithoutBookLink = `
 		WHERE BE.id_publisher_book = $1
 `;
 
+const selectBookEditionsByBookID = `
+	SELECT BE.ID_BookEdition, BE.Edition, P.Name FROM Book AS B
+	INNER JOIN Publisher_Book AS PB
+	ON PB.ID_Book = B.ID_Book
+	INNER JOIN Publisher AS P
+	ON P.ID_Publisher = PB.ID_Publisher
+	INNER JOIN BookEdition AS BE
+	ON PB.ID_Publisher_Book = BE.ID_Publisher_Book
+	WHERE B.ID_Book = $1
+`
+
 module.exports = {
   insertBookEdition,
   insertBookPublisher,
@@ -117,5 +128,6 @@ module.exports = {
 	selectBookPublisherInBookEdition,
 	deleteBookPublisherByID,
 	selectBookEdition,
+	selectBookEditionsByBookID,
 	selectBookEditionWithoutBookLink
 };
