@@ -13,7 +13,7 @@ const getBookEditionByID = async (req, res) => {
     const book = result.rows[0];
     res.status(200).send(book);
   }catch(err) {
-    res.status(500).send();
+    res.status(500).send(err);
   }
 };
 
