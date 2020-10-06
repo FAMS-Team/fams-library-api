@@ -8,20 +8,21 @@ const deleteBookEditionByID = async (req, res) => {
   }
   else{
   try{
+    await db.query('BEGIN');
     const id = req.params.id_edition;
     let result = await db.query(queries.deleteBookEditionByID,[id]);
     let publisherBookID;
-    try{
-      publisherBookID = await db.query(queries.selectBookPublisherByID,[result.rows[0].id_publisher_book]);
-      if(!publisherBookID.rows[0]){
-        await db.query(queries.deleteBookPublisherByID, [result.rows[0].id_publisher_book]);
-      }
-    }catch(err){
-      console.log('Hay bookeditions existentes')
+
+    publisherBookID = await db.query(queries.selectBookPublisherByID,[result.rows[0].id_publisher_book]);
+    if(!publisherBookID.rows[0]){
+      await db.query(queries.deleteBookPublisherByID, [result.rows[0].id_publisher_book]);
     }
 
-    res.status(200).send("Success!");
+    await db.query('COMMIT')
+
+    res.status(200).send("Successfully deleted edition!");
   }catch(err){
+    await db.query('ROLLBACK');
     res.status(500).send(err);
   }
 }

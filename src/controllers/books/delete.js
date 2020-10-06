@@ -9,17 +9,18 @@ const deleteBookByID = async (req, res) => {
   else{
     const id = req.params.id;
     try {
-    await db.query(queries.deleteBookEdition, [id]);
+      await db.query('BEGIN');
 
-    await db.query(queries.deletePublisherBook,[id]);
+      await db.query(queries.deleteBookEdition, [id]);
+      await db.query(queries.deletePublisherBook,[id]);
+      await db.query(queries.deleteBookAuthor,[id]);
+      await db.query(queries.deleteBook,[id]);
 
-    await db.query(queries.deleteBookAuthor,[id]);
-
-    await db.query(queries.deleteBook,[id]);
-    res.status(200).send({message: "Book deleted successfully."});
+      await db.query('COMMIT');
+      res.status(200).send({message: "Book deleted successfully."});
     } catch(err) {
-    console.log(err);
-    res.status(500).send(err);
+      await db.query('ROLLBACK');
+      res.status(500).send(err);
     }
   }
 };
