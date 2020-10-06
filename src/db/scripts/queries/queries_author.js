@@ -17,6 +17,16 @@ const insertAuthor = `
     INSERT INTO Author (Name, Last_Name, Date_Birth, Date_Death, Description, ID_Country)
     VALUES ($1, $2, $3, $4, $5, $6)
 `
+
+const deleteBookAuthor = `
+    DELETE FROM Book_Author
+    WHERE ID_Author = $1
+`
+
+const deleteAuthor = `
+    DELETE FROM Author
+    WHERE ID_Author = $1
+`
 /*
 const updateAuthor = `
     UPDATE Author SET 
@@ -63,6 +73,8 @@ const updateAuthorCountry = `
 module.exports = {
     selectAllAuthors,
     insertAuthor,
+    deleteAuthor,
+    deleteBookAuthor,
     //updateAuthor
     updateAuthorName,
     updateAuthorLastName,
