@@ -56,7 +56,7 @@ const deleteBookPublisherByID = `
 
 const selectBookEdition = `
 	SELECT
-		B.title, B.subtitle, B.description, B.publication_date, BSC.name AS Subcategory, BC.name AS Category, 
+		BE.ID_BookEdtion AS ID, B.title, B.subtitle, B.description, B.publication_date, BSC.name AS Subcategory, BC.name AS Category, 
 		S.name AS Series, A.name Author_name, A.last_name AS Author_LastName, P.name AS Publisher, BE.edition, 
 		BE.page_number, BE.isbn, BE.price,
 		BE.image_link, BE.book_link
