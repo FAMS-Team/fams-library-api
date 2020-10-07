@@ -1,9 +1,10 @@
 const db = require("../../db/postgres");
+const cloudinary = require('cloudinary').v2;
 const queries = require("../../db/scripts/queries/queries_bookedition");
 
 const createBookEdition = async (req,res) => {
   const bookEdition = new BookEdition(req.body);
-  bookEdition.bookID = req.params.id_book
+  bookEdition.bookID = req.params.id_book;
   const type = req.user.id_contacttype;
   if(type !== 1){
     res.sendStatus(403);
@@ -16,7 +17,7 @@ const createBookEdition = async (req,res) => {
         bookEdition.publisherID
       ]);
       //let publisherBookID = result.rows[0].id_publisher_book
-
+      
       if (result.rowCount === 0){
         result = await db.query(queries.insertBookPublisher, [
           bookEdition.bookID,
@@ -24,7 +25,11 @@ const createBookEdition = async (req,res) => {
         ]);
         publisherBookID = result.rows[0].id_publisher_book;
       }
-      console.log(publisherBookID)
+      
+      const image = await cloudinary.uploader.upload(bookEdition.imageLink);
+      const book = await cloudinary.uploader.upload(bookEdition.bookLink);
+      bookEdition.imageLink = image.secure_url;
+      bookEdition.bookLink = book.secure_url;
 
       await db.query(queries.insertBookEdition, [
         bookEdition.edition,
