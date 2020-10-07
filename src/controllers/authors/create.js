@@ -12,7 +12,7 @@ const createAuthor = async (req, res) => {
         return res.status(401);
     }
 
-    if (!name || !country || !lastname || !date_birth || !date_death || !description){
+    if (!name || !country || !lastname || !date_birth || !description){
         return res.status(400).send({error: 'Insufficcient details provided.'})
     }
     try{
