@@ -20,7 +20,23 @@ const getBookByID = async (req, res) => {
 
 const getBooks = async (req, res) => {
   try {
-    const books = await db.query(queries.selectAllBooks);
+    let {title, author, series} = req.query;
+    let books;
+    if (title) {
+      title = `%${title}%`;
+      books = await db.query(queries.searchBooksByTitle, [title]);
+    }
+    else if(author){
+      author = `%${author}%`;
+      books = await db.query(queries.searchBooksByAuthor, [author]);
+    }
+    else if(series){
+      series = `%${series}%`;
+      books = await db.query(queries.searchBooksBySeries, [series]);
+    }
+    else{
+      books = await db.query(queries.selectAllBooks);
+    }
     res.status(200).send(books.rows);
   } catch (err) {
     res.status(500).send();
@@ -28,7 +44,10 @@ const getBooks = async (req, res) => {
 };
 
 const searchBooks = async (req, res) => {
-  const {title, author, series} = req.body;
+  let {title, author, series} = req.body;
+  title = `%${title}%`;
+  author = `%${author}%`;
+  series = `%${series}%`;
   let books;
   try{
     if (title) {
