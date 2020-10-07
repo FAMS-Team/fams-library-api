@@ -4,12 +4,11 @@ const selectAllPublishers = `
     ON P.ID_Country = C.ID_Country
     ORDER BY P.Name
 `
-/*
+
 const insertPublisher = `
     INSERT INTO Publisher (Name, ID_Country)
     VALUES ($1, $2)
 `
-*/
 
 const updatePublisher = `
     UPDATE Publisher SET 
@@ -30,7 +29,7 @@ const updatePublisherCountry = `
 
 module.exports = {
     selectAllPublishers,
-    //insertPublisher
+    insertPublisher,
     updatePublisherName,
     updatePublisherCountry
 }

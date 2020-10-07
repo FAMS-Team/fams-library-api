@@ -4,7 +4,6 @@ const queries = require('../../db/scripts/queries/queries_publisher');
 const createPublisher = async (req, res) => {
     const {name, country} = req.body;
     const {user} = req;
-
     if(!user){
         return res.status(401);
     }
