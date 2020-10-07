@@ -83,8 +83,9 @@ const selectBookEdition = `
 
 const selectBookEditionWithoutBookLink = `
 	SELECT
-		B.title, B.subtitle, B.description, B.publication_date, BSC.name, BC.name, S.name,
-		A.name, A.last_name, P.name, BE.edition, BE.page_number, BE.isbn, BE.price,
+		BE.ID_BookEdition AS ID, B.title, B.subtitle, B.description, B.publication_date, BSC.name AS Subcategory, BC.name AS Category, 
+		S.name AS Series, A.name Author_name, A.last_name AS Author_LastName, P.name AS Publisher, BE.edition, 
+		BE.page_number, BE.isbn, BE.price,
 		BE.image_link
 	FROM
 		book AS B
