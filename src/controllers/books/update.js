@@ -10,6 +10,29 @@ const updateBook = async (req, res) => {
   }
   else{
     try{
+      await db.query("BEGIN");
+
+      if (book.subCategoryID) {
+          await db.query(queries.updateSubCategoryID,[book.subCategoryID, book.bookID]);
+      }
+      if (book.seriesID) {
+        await db.query(queries.updateSeriesID, [book.seriesID, book.bookID]);
+      }
+      if (book.title) {
+        await db.query(queries.updateTitle, [book.title, book.bookID]);
+      }
+      if (book.subTitle) {
+        await db.query(queries.updateSubTitle, [book.subTitle, book.bookID]);
+      }
+      if (book.publicationDate) {
+        await db.query(queries.updatePublicationDate, [book.publicationDate, book.bookID]);
+      }
+      if (book.description) {
+        await db.query(queries.updateDescription, [book.description, book.bookID]);
+      }
+
+      await db.query("COMMIT");
+      /*
       await db.query(queries.updateBook,[
         book.subCategoryID,
         book.seriesID,
@@ -20,8 +43,11 @@ const updateBook = async (req, res) => {
         book.bookID
       ]);
       res.status(201).send({message: "Book updated successfully!"});
+      */
+      return res.status(200).send({message: "Book updated successfully."})
     }catch(err){
-      res.status(400).send(err);
+      await db.query("ROLLBACK");
+      return res.status(500).send(err);
     }
   }
 };
