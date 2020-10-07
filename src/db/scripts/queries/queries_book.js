@@ -95,6 +95,7 @@ const deleteBook = `
 	DELETE FROM book WHERE id_book = $1
 `;
 
+/*
 const updateBook = `
 	UPDATE book SET
 		id_booksubcategory = $1,
@@ -104,6 +105,37 @@ const updateBook = `
 		publication_date = $5,
 		description = $6
 	WHERE id_book = $7
+`;
+*/
+
+const updateSubCategoryID = `
+	UPDATE book SET id_booksubcategory = $1
+	WHERE id_book = $2
+`;
+
+const updateSeriesID = `
+	UPDATE book SET id_series = $1
+	WHERE id_book = $2
+`;
+
+const updateTitle = `
+	UPDATE book SET title = $1
+	WHERE id_book = $2
+`;
+
+const updateSubTitle = `
+	UPDATE book SET subtitle = $1
+	WHERE id_book = $2
+`;
+
+const updatePublicationDate = `
+	UPDATE book SET publication_date = $1
+	WHERE id_book = $2
+`;
+
+const updateDescription = `
+	UPDATE book SET description = $1
+	WHERE id_book = $2
 `;
 
 module.exports = {
@@ -116,5 +148,11 @@ module.exports = {
 	deleteBookAuthor,
 	deleteBook,
 	selectAllEditionBooksWithoutBookLink,
-	updateBook
+	//updateBook
+	updateSubCategoryID,
+	updateSeriesID,
+	updateTitle,
+	updateSubTitle,
+	updatePublicationDate,
+	updateDescription
 };
