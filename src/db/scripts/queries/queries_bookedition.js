@@ -56,8 +56,8 @@ const deleteBookPublisherByID = `
 
 const selectBookEdition = `
 	SELECT
-		BE.ID_BookEdition AS ID, B.title, B.subtitle, B.description, B.publication_date, BSC.name AS Subcategory, BC.name AS Category, 
-		S.name AS Series, A.name Author_name, A.last_name AS Author_LastName, P.name AS Publisher, BE.edition, 
+		BE.ID_BookEdition AS ID, B.title, B.subtitle, B.description, B.publication_date, BSC.name AS Subcategory, BC.name AS Category,
+		S.name AS Series, A.name Author_name, A.last_name AS Author_LastName, P.name AS Publisher, BE.edition,
 		BE.page_number, BE.isbn, BE.price,
 		BE.image_link, BE.book_link
 	FROM
@@ -83,8 +83,8 @@ const selectBookEdition = `
 
 const selectBookEditionWithoutBookLink = `
 	SELECT
-		BE.ID_BookEdition AS ID, B.title, B.subtitle, B.description, B.publication_date, BSC.name AS Subcategory, BC.name AS Category, 
-		S.name AS Series, A.name Author_name, A.last_name AS Author_LastName, P.name AS Publisher, BE.edition, 
+		BE.ID_BookEdition AS ID, B.title, B.subtitle, B.description, B.publication_date, BSC.name AS Subcategory, BC.name AS Category,
+		S.name AS Series, A.name Author_name, A.last_name AS Author_LastName, P.name AS Publisher, BE.edition,
 		BE.page_number, BE.isbn, BE.price,
 		BE.image_link
 	FROM
@@ -118,6 +118,40 @@ const selectBookEditionsByBookID = `
 	ON PB.ID_Publisher_Book = BE.ID_Publisher_Book
 	WHERE B.ID_Book = $1
 `
+const updateEdition = `
+	UPDATE bookedition SET edition = $1
+	WHERE id_bookedition = $2
+`;
+
+const updatePageNumber = `
+	UPDATE bookedition SET page_number = $1
+	WHERE id_bookedition = $2
+`;
+
+const updateIsbn = `
+	UPDATE bookedition SET isbn = $1
+	WHERE id_bookedition = $2
+`;
+
+const updatePrice = `
+	UPDATE bookedition SET price = $1
+	WHERE id_bookedition = $2
+`;
+
+const updateImageLink = `
+	UPDATE bookedition SET image_link = $1
+	WHERE id_bookedition = $2
+`;
+
+const updateBookLink = `
+	UPDATE bookedition SET book_link = $1
+	WHERE id_bookedition = $2
+`;
+
+const updatePublisherId = `
+	UPDATE bookedition SET id_publisher_book = $1
+	WHERE id_bookedition = $2
+`;
 
 module.exports = {
   insertBookEdition,
@@ -130,5 +164,12 @@ module.exports = {
 	deleteBookPublisherByID,
 	selectBookEdition,
 	selectBookEditionsByBookID,
-	selectBookEditionWithoutBookLink
+	selectBookEditionWithoutBookLink,
+	updateEdition,
+	updatePageNumber,
+	updateIsbn,
+	updatePrice,
+	updateImageLink,
+	updateBookLink,
+	updatePublisherId
 };
