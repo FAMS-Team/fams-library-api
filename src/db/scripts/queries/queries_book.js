@@ -35,23 +35,18 @@ const selectBookInnerJoin = `
 `;
 
 const selectAllBooks = `
-	SELECT
-		B.ID_Book, B.title, B.subtitle, B.description, B.publication_date, BSC.id_booksubcategory ,BSC.name,BC.id_bookcategory, BC.name, S.id_series, S.name AS series,
-		A.name AS author_name, A.last_name AS author_lastname
-	FROM
-		book AS B
-		INNER JOIN booksubcategory AS BSC
-			ON BSC.id_booksubcategory = B.id_booksubcategory
-		INNER JOIN bookcategory AS BC
-			ON BC.id_bookcategory = BSC.id_booksubcategory
-		INNER JOIN series AS S
-			ON B.id_series = S.id_series
-		INNER JOIN book_author AS BA
-			ON BA.id_book = B.id_book
-		INNER JOIN author AS A
-			ON A.id_author = BA.id_author
-		INNER JOIN publisher_book AS PB
-			ON PB.id_book = B.id_book
+	SELECT B.ID_Book, C.Name, SC.Name, S.Name, B.Title, B.SubTitle, B.Publication_Date, B.Description, A.Name, A.Last_Name
+	FROM Book AS B
+	INNER JOIN Series AS S
+	ON B.ID_Series = S.ID_Series
+	INNER JOIN BookSubcategory AS SC
+	ON SC.ID_BookSubcategory = B.ID_BookSubcategory
+	INNER JOIN BookCategory AS C
+	ON SC.ID_BookCategory = C.ID_BookCategory
+	INNER JOIN Book_Author AS BA
+	ON BA.ID_Book = B.ID_Book
+	INNER JOIN Author AS A
+	ON BA.ID_Author = A.ID_Author
 `;
 /*
 const selectAllEditionBooksWithoutBookLink = `
