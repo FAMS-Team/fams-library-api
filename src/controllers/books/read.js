@@ -26,6 +26,26 @@ const getBooks = async (req, res) => {
     res.status(500).send();
   }
 };
+
+const searchBooks = async (req, res) => {
+  const {title, author, series} = req.body;
+  let books;
+  try{
+    if (title) {
+      books = await db.query(queries.searchBooksByTitle, [title]);
+    }
+    else if(author){
+      books = await db.query(queries.searchBooksByAuthor, [author]);
+    }
+    else if(series){
+      books = await db.query(queries.searchBooksBySeries, [series]);
+    }
+    res.status(200).send(books.rows)
+  }
+  catch (error) {
+    return res.status(400).send(error);
+  }
+};
 /*
 const getEditionBooksWithoutBookLink = async (req,res) => {
   try {
@@ -38,4 +58,4 @@ const getEditionBooksWithoutBookLink = async (req,res) => {
 };
 */
 
-module.exports = { getBookByID, getBooks};
+module.exports = { getBookByID, getBooks, searchBooks};
