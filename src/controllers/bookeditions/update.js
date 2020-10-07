@@ -48,7 +48,7 @@ const updateBookEdition = async (req, res) => {
       ]);
       res.status(201).send("Success!");
       */
-      return res.status(200).send({message: "EditionBook updated successfully."})
+      return res.status(200).send({message: "Edition updated successfully."})
     }catch(err){
       await db.query("ROLLBACK")
       return res.status(500).send(err);

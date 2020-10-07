@@ -20,7 +20,7 @@ const deleteBookEditionByID = async (req, res) => {
 
     await db.query('COMMIT')
 
-    res.status(200).send("Successfully deleted edition!");
+    res.status(200).send({message: "Successfully deleted edition!"});
   }catch(err){
     await db.query('ROLLBACK');
     res.status(500).send(err);
