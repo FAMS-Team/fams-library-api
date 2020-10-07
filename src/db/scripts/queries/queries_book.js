@@ -35,25 +35,25 @@ const selectBookInnerJoin = `
 `;
 
 const selectAllBooks = `
-SELECT
-	B.title, B.subtitle, B.description, B.publication_date, BSC.id_booksubcategory ,BSC.name,BC.id_bookcategory, BC.name, S.id_series, S.name,
-	A.name, A.last_name
-FROM
-	book AS B
-	INNER JOIN booksubcategory AS BSC
-		ON BSC.id_booksubcategory = B.id_booksubcategory
-	INNER JOIN bookcategory AS BC
-		ON BC.id_bookcategory = BSC.id_booksubcategory
-	INNER JOIN series AS S
-		ON B.id_series = S.id_series
-	INNER JOIN book_author AS BA
-		ON BA.id_book = B.id_book
-	INNER JOIN author AS A
-		ON A.id_author = BA.id_author
-	INNER JOIN publisher_book AS PB
-		ON PB.id_book = B.id_book
+	SELECT
+		B.title, B.subtitle, B.description, B.publication_date, BSC.id_booksubcategory ,BSC.name,BC.id_bookcategory, BC.name, S.id_series, S.name,
+		A.name, A.last_name
+	FROM
+		book AS B
+		INNER JOIN booksubcategory AS BSC
+			ON BSC.id_booksubcategory = B.id_booksubcategory
+		INNER JOIN bookcategory AS BC
+			ON BC.id_bookcategory = BSC.id_booksubcategory
+		INNER JOIN series AS S
+			ON B.id_series = S.id_series
+		INNER JOIN book_author AS BA
+			ON BA.id_book = B.id_book
+		INNER JOIN author AS A
+			ON A.id_author = BA.id_author
+		INNER JOIN publisher_book AS PB
+			ON PB.id_book = B.id_book
 `;
-
+/*
 const selectAllEditionBooksWithoutBookLink = `
 	SELECT
 		P.name,BE.edition, BE.page_number, BE.isbn, BE.price, BE.image_link
@@ -76,6 +76,22 @@ const selectAllEditionBooksWithoutBookLink = `
 		INNER JOIN bookedition AS BE
 			ON BE.id_publisher_book = PB.id_publisher_book
 		WHERE B.id_book = $1;
+`;
+*/
+
+const searchBooksByTitle = `
+	${selectAllBooks}
+	WHERE B.Title LIKE %$1%
+`;
+
+const searchBooksByAuthor = `
+	${selectAllBooks}
+	WHERE A.Name LIKE %$1% OR A.Last_Name LIKE %$1%
+`;
+
+const searchBooksBySeries = `
+	${selectAllBooks}
+	WHERE S.Name LIKE %$1% OR A.Last_Name LIKE %$1%
 `;
 
 const deleteBookEdition = `
@@ -111,10 +127,12 @@ module.exports = {
 	insertBookAuthor,
 	selectBookInnerJoin,
 	selectAllBooks,
+	searchBooksByAuthor,
+	searchBooksByTitle,
+	searchBooksBySeries,
 	deleteBookEdition,
 	deletePublisherBook,
 	deleteBookAuthor,
 	deleteBook,
-	selectAllEditionBooksWithoutBookLink,
 	updateBook
 };
