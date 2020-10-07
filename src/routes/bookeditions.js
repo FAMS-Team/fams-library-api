@@ -9,7 +9,7 @@ const deleteBookEdition = require("../controllers/bookeditions/delete");
 const {getBookEdition, getAllBookEditions} = require("../controllers/bookeditions/read")
 
 // Routes
-router.get("/books/editions/:id_edition", getBookEdition);
+router.get("/books/editions/:id_edition", verifyUser, getBookEdition);
 router.get("/books/:id_book/editions", getAllBookEditions);
 router.post("/books/:id_book/editions", verifyUser, createBookEdition);
 router.patch("/books/editions/:id_edition", verifyUser,updateBookEdition);

@@ -15,7 +15,7 @@ const createBookEdition = async (req,res) => {
         bookEdition.bookID,
         bookEdition.publisherID
       ]);
-      let publisherBookID = result.rows[0].id_publisher_book
+      //let publisherBookID = result.rows[0].id_publisher_book
 
       if (result.rowCount === 0){
         result = await db.query(queries.insertBookPublisher, [
@@ -36,10 +36,10 @@ const createBookEdition = async (req,res) => {
         publisherBookID,
       ]);
       await db.query('COMMIT');
-      res.status(201).send("Success!");
+      res.status(201).send({message: "Successfully added edition!"});
     } catch (err) {
       await db.query('ROLLBACK');
-      res.status(400).send(err);
+      res.status(400).send(err.stack);
     }
   }
 };

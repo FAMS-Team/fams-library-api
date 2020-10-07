@@ -78,7 +78,7 @@ const selectBookEdition = `
 			ON P.id_publisher = PB.id_publisher
 		INNER JOIN bookedition AS BE
 			ON BE.id_publisher_book = PB.id_publisher_book
-		WHERE BE.id_publisher_book = $1
+		WHERE BE.ID_BookEdition = $1
 `;
 
 const selectBookEditionWithoutBookLink = `
@@ -104,7 +104,7 @@ const selectBookEditionWithoutBookLink = `
 			ON P.id_publisher = PB.id_publisher
 		INNER JOIN bookedition AS BE
 			ON BE.id_publisher_book = PB.id_publisher_book
-		WHERE BE.id_publisher_book = $1
+		WHERE BE.ID_BookEdition = $1
 `;
 
 const selectBookEditionsByBookID = `
