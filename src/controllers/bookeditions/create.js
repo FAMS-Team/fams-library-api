@@ -44,7 +44,7 @@ const createBookEdition = async (req,res) => {
       res.status(201).send({message: "Successfully added edition!"});
     } catch (err) {
       await db.query('ROLLBACK');
-      res.status(400).send(err);
+      res.status(400).send({error: err.stack});
     }
   }
 };
