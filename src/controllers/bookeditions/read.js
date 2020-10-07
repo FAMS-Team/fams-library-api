@@ -8,11 +8,12 @@ const getBookEdition = async (req, res) => {
   const {user} = req;
   let query = queries.selectBookEditionWithoutBookLink;
   try{
+    const current_date = await db.query(date_query.selectCurrentDate);
     const reservations = await db.query(reservation_query.selectReservationByUserAndBookEdition,[user.id_contact, edition]);
     if(reservations.rowCount === 0){
       query = queries.selectBookEditionWithoutBookLink;
     }
-    else if (reservations.rows[0].end_date >= await db.query(date_query.selectCurrentDate).rows[0].current_date){
+    else if (reservations.rows[0].end_date >= current_date.rows[0].current_date){
       query = queries.selectBookEdition;
     }
 
@@ -20,7 +21,7 @@ const getBookEdition = async (req, res) => {
     const book = result.rows[0];
     res.status(200).send(book);
   }catch(err) {
-    res.status(500).send(err);
+    res.status(400).send(err.stack);
   }
 };
 
@@ -30,7 +31,7 @@ const getAllBookEditions = async (req, res) => {
     const result = await db.query(queries.selectBookEditionsByBookID, [book]);
     res.status(200).send(result.rows);
   } catch (error){
-    res.status(400).send(error);
+    res.status(400).send(error.stack);
   }
 }
 
