@@ -10,6 +10,32 @@ const updateBookEdition = async (req, res) => {
   }
   else{
     try{
+      await db.query("BEGIN");
+
+      if (bookEdition.edition) {
+          await db.query(queries.updateEdition,[bookEdition.edition, bookEdition.bookEditionID]);
+      }
+      if (bookEdition.pageNumber) {
+          await db.query(queries.updatePageNumber,[bookEdition.pageNumber, bookEdition.bookEditionID]);
+      }
+      if (bookEdition.isbn) {
+          await db.query(queries.updateIsbn,[bookEdition.isbn, bookEdition.bookEditionID]);
+      }
+      if (bookEdition.price) {
+          await db.query(queries.updatePrice,[bookEdition.price, bookEdition.bookEditionID]);
+      }
+      if (bookEdition.imageLink) {
+          await db.query(queries.updateImageLink,[bookEdition.imageLink, bookEdition.bookEditionID]);
+      }
+      if (bookEdition.bookLink) {
+          await db.query(queries.updateBookLink,[bookEdition.bookLink, bookEdition.bookEditionID]);
+      }
+      if (bookEdition.publisherID) {
+          await db.query(queries.updatePublisherId,[bookEdition.publisherID, bookEdition.bookEditionID]);
+      }
+
+      await db.query("COMMIT");
+      /*
       await db.query(queries.updateBookEdition,[
         bookEdition.edition,
         bookEdition.pageNumber,
@@ -21,8 +47,11 @@ const updateBookEdition = async (req, res) => {
         bookEdition.bookEditionID
       ]);
       res.status(201).send("Success!");
+      */
+      return res.status(200).send({message: "EditionBook updated successfully."})
     }catch(err){
-      res.status(400).send(err);
+      await db.query("ROLLBACK")
+      return res.status(500).send(err);
     }
   }
 };
