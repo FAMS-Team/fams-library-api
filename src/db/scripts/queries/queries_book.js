@@ -35,7 +35,9 @@ const selectBookInnerJoin = `
 `;
 
 const selectAllBooks = `
-	SELECT B.ID_Book, C.Name as category, SC.Name AS subcategory, S.Name AS series, B.Title, B.SubTitle, B.Publication_Date, B.Description, A.Name AS author_name, A.Last_Name AS author_lastname
+	SELECT B.ID_Book, C.Name as category, SC.Name AS subcategory, S.Name AS series, 
+	B.Title, B.SubTitle, B.Publication_Date, B.Description, A.Name AS author_name, 
+	A.Last_Name AS author_lastname
 	FROM Book AS B
 	INNER JOIN Series AS S
 	ON B.ID_Series = S.ID_Series
