@@ -3,12 +3,6 @@ const cors = require('cors');
 require("dotenv").config();
 const cloudinary = require('cloudinary').v2;
 
-cloudinary.config({ 
-  cloud_name: 'fams-library', 
-  api_key: process.env.API_KEY, 
-  api_secret: process.env.API_SECRET 
-});
-
 // Routers
 const userRouter = require("./routes/user");
 const bookRouter = require("./routes/books");
