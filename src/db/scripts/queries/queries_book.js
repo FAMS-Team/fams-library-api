@@ -35,7 +35,7 @@ const selectBookInnerJoin = `
 `;
 
 const selectAllBooks = `
-	SELECT B.ID_Book, C.Name, SC.Name, S.Name, B.Title, B.SubTitle, B.Publication_Date, B.Description, A.Name, A.Last_Name
+	SELECT B.ID_Book, C.Name as category, SC.Name AS subcategory, S.Name AS series, B.Title, B.SubTitle, B.Publication_Date, B.Description, A.Name AS author_name, A.Last_Name AS author_lastname
 	FROM Book AS B
 	INNER JOIN Series AS S
 	ON B.ID_Series = S.ID_Series
@@ -76,17 +76,17 @@ const selectAllEditionBooksWithoutBookLink = `
 
 const searchBooksByTitle = `
 	${selectAllBooks}
-	WHERE B.Title LIKE $1
+	WHERE B.Title ILIKE $1
 `;
 
 const searchBooksByAuthor = `
 	${selectAllBooks}
-	WHERE A.Name LIKE $1 OR A.Last_Name LIKE $1
+	WHERE A.Name ILIKE $1 OR A.Last_Name LIKE $1
 `;
 
 const searchBooksBySeries = `
 	${selectAllBooks}
-	WHERE S.Name LIKE $1
+	WHERE S.Name ILIKE $1
 `;
 
 const deleteBookEdition = `
