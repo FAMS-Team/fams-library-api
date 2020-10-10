@@ -65,8 +65,10 @@ const selectAllBooks = `
 `;
 
 const selectAllBookAuthor = `
-	SELECT id_author
-	FROM book_author
+	SELECT A.id_author, A.name, A.last_name
+	FROM book_author AS BA
+	INNER JOIN author AS A
+	ON A.id_author = BA.id_author
 	WHERE id_book = $1
 	`;
 /*
