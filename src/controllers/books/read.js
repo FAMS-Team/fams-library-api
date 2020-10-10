@@ -5,14 +5,29 @@ const getBookByID = async (req, res) => {
   const id = req.params.id;
 
   try {
-    const result = await db.query(queries.selectBookInnerJoin, [id]);
+    let result = await db.query(queries.selectBookInnerJoin, [id]);
 
     if (result.rows.length == 0) {
       return res.status(404).send();
     }
 
     const book = result.rows[0];
-    res.status(200).send(book);
+
+    result = await db.query(queries.selectAllBookAuthor,[id]);
+
+    const selectedBooks = []
+    selectedBooks.push({
+      category: book.category,
+      subcategory: book.subcategory,
+      series: book.series,
+      title: book.title,
+      subtitle: book.subtitle,
+      publication_date: book.publication_date,
+      description: book.description,
+      authors: result.rows
+    });
+
+    res.status(200).send(selectedBooks);
   } catch (err) {
     res.status(500).send();
   }
