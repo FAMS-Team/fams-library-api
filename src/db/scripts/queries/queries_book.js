@@ -34,8 +34,9 @@ const selectBookInnerJoin = `
 		WHERE B.id_book = $1;
 `;
 
+/*
 const selectAllBooks = `
-	SELECT B.ID_Book, C.Name as category, SC.Name AS subcategory, S.Name AS series, 
+	SELECT B.ID_Book, C.Name as category, SC.Name AS subcategory, S.Name AS series,
 	B.Title, B.SubTitle, B.Publication_Date, B.Description, A.Name AS author_name, A.Last_Name AS author_lastname
 	FROM Book AS B
 	INNER JOIN Series AS S
@@ -49,6 +50,25 @@ const selectAllBooks = `
 	INNER JOIN Author AS A
 	ON BA.ID_Author = A.ID_Author
 `;
+*/
+
+const selectAllBooks = `
+	SELECT B.ID_Book, C.Name as category, SC.Name AS subcategory, S.Name AS series,
+	B.Title, B.SubTitle, B.Publication_Date, B.Description
+	FROM Book AS B
+	INNER JOIN Series AS S
+	ON B.ID_Series = S.ID_Series
+	INNER JOIN BookSubcategory AS SC
+	ON SC.ID_BookSubcategory = B.ID_BookSubcategory
+	INNER JOIN BookCategory AS C
+	ON SC.ID_BookCategory = C.ID_BookCategory
+`;
+
+const selectAllBookAuthor = `
+	SELECT id_author
+	FROM book_author
+	WHERE id_book = $1
+	`;
 /*
 const selectAllEditionBooksWithoutBookLink = `
 	SELECT
@@ -168,5 +188,6 @@ module.exports = {
 	updateTitle,
 	updateSubTitle,
 	updatePublicationDate,
-	updateDescription
+	updateDescription,
+	selectAllBookAuthor
 };
