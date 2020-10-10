@@ -57,6 +57,22 @@ const selectAllBooks = `
 	ON SC.ID_BookCategory = C.ID_BookCategory
 `;
 
+const selectAllBooksWithAuthor = `
+	SELECT B.ID_Book, C.Name as category, SC.Name AS subcategory, S.Name AS series,
+	B.Title, B.SubTitle, B.Publication_Date, B.Description
+	FROM Book AS B
+	INNER JOIN Series AS S
+	ON B.ID_Series = S.ID_Series
+	INNER JOIN BookSubcategory AS SC
+	ON SC.ID_BookSubcategory = B.ID_BookSubcategory
+	INNER JOIN BookCategory AS C
+	ON SC.ID_BookCategory = C.ID_BookCategory
+	INNER JOIN Book_Author AS BA
+	ON BA.ID_Book = B.ID_Book
+	INNER JOIN Author AS A
+	ON BA.ID_Author = A.ID_Author
+`;
+
 const selectAllBookAuthor = `
 	SELECT A.id_author, A.name, A.last_name
 	FROM book_author AS BA
@@ -96,7 +112,7 @@ const searchBooksByTitle = `
 `;
 
 const searchBooksByAuthor = `
-	${selectAllBooks}
+	${selectAllBooksWithAuthor}
 	WHERE A.Name ILIKE $1 OR A.Last_Name LIKE $1
 `;
 
