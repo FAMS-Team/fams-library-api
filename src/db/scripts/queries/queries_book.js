@@ -58,8 +58,8 @@ const selectAllBooks = `
 `;
 
 const selectAllBooksWithAuthor = `
-	SELECT B.ID_Book, C.Name as category, SC.Name AS subcategory, S.Name AS series,
-	B.Title, B.SubTitle, B.Publication_Date, B.Description
+SELECT DISTINCT ON (B.ID_Book) B.ID_Book, C.Name as category, SC.Name AS subcategory, S.Name AS series,
+B.Title, B.SubTitle, B.Publication_Date, B.Description
 	FROM Book AS B
 	INNER JOIN Series AS S
 	ON B.ID_Series = S.ID_Series
