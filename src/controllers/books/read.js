@@ -37,7 +37,24 @@ const getBooks = async (req, res) => {
     else{
       books = await db.query(queries.selectAllBooks);
     }
-    res.status(200).send(books.rows);
+
+    const selectedBooks = [];
+    for (const bookSelected of books.rows){
+      const result = await db.query(queries.selectAllBookAuthor,[bookSelected.id_book]);
+
+      selectedBooks.push({
+        id_book: bookSelected.id_book,
+        category: bookSelected.category,
+        subcategory: bookSelected.subcategory,
+        series: bookSelected.series,
+        title: bookSelected.title,
+        subtitle: bookSelected.subtitle,
+        publication_date: bookSelected.publication_date,
+        description: bookSelected.description,
+        authors: result.rows
+      });
+    }
+    res.status(200).send(selectedBooks);
   } catch (err) {
     res.status(500).send();
   }
