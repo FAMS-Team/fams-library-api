@@ -15,22 +15,15 @@ const insertBookAuthor = `
 
 const selectBookInnerJoin = `
 	SELECT
-		B.title, B.subtitle, B.description, B.publication_date, BSC.id_booksubcategory ,BSC.name,BC.id_bookcategory, BC.name, S.id_series, S.name,
-		A.name, A.last_name
+		B.title, B.subtitle, B.description, B.publication_date, BSC.id_booksubcategory ,BSC.name,BC.id_bookcategory, BC.name, S.id_series, S.name
 	FROM
 		book AS B
 		INNER JOIN booksubcategory AS BSC
 			ON BSC.id_booksubcategory = B.id_booksubcategory
 		INNER JOIN bookcategory AS BC
-			ON BC.id_bookcategory = BSC.id_booksubcategory
+			ON BC.id_bookcategory = BSC.id_bookcategory
 		INNER JOIN series AS S
 			ON B.id_series = S.id_series
-		INNER JOIN book_author AS BA
-			ON BA.id_book = B.id_book
-		INNER JOIN author AS A
-			ON A.id_author = BA.id_author
-		INNER JOIN publisher_book AS PB
-			ON PB.id_book = B.id_book
 		WHERE B.id_book = $1;
 `;
 
