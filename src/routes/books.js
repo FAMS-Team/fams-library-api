@@ -13,7 +13,7 @@ router.post("/books", verifyUser, createBook);
 router.patch("/books/:id",verifyUser, updateBook);
 router.get("/books/:id", getBookByID);
 router.get("/books", getBooks);
-router.post("/books/search", searchBooks);
+//router.post("/books/search", searchBooks);
 //router.get("/books/editions/:id",getEditionBooksWithoutBookLink);
 router.delete("/books/:id", verifyUser, deleteBookByID);
 

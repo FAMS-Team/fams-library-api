@@ -75,6 +75,7 @@ const getBooks = async (req, res) => {
   }
 };
 
+/*
 const searchBooks = async (req, res) => {
   let {title, author, series} = req.body;
   title = `%${title}%`;
@@ -97,6 +98,9 @@ const searchBooks = async (req, res) => {
     return res.status(400).send(error);
   }
 };
+*/
+
+
 /*
 const getEditionBooksWithoutBookLink = async (req,res) => {
   try {
@@ -109,4 +113,4 @@ const getEditionBooksWithoutBookLink = async (req,res) => {
 };
 */
 
-module.exports = { getBookByID, getBooks, searchBooks};
+module.exports = { getBookByID, getBooks};
