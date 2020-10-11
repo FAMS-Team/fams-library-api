@@ -113,7 +113,7 @@ const searchBooksByTitle = `
 
 const searchBooksByAuthor = `
 	${selectAllBooksWithAuthor}
-	WHERE A.Name ILIKE $1 OR A.Last_Name LIKE $1
+	WHERE A.Name ILIKE $1 OR A.Last_Name ILIKE $1
 `;
 
 const searchBooksBySeries = `
