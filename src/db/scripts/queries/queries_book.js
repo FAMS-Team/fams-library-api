@@ -15,7 +15,9 @@ const insertBookAuthor = `
 
 const selectBookInnerJoin = `
 	SELECT
-		B.title, B.subtitle, B.description, B.publication_date, BSC.id_booksubcategory ,BSC.name,BC.id_bookcategory, BC.name, S.id_series, S.name
+		B.title, B.subtitle, B.description, B.publication_date,
+		BSC.id_booksubcategory ,BSC.name,BC.id_bookcategory,
+		BC.name, S.id_series, S.name
 	FROM
 		book AS B
 		INNER JOIN booksubcategory AS BSC
@@ -58,7 +60,8 @@ const selectAllBooks = `
 `;
 
 const selectAllBooksWithAuthor = `
-SELECT DISTINCT ON (B.ID_Book) B.ID_Book, C.Name as category, SC.Name AS subcategory, S.Name AS series,
+SELECT DISTINCT ON (B.ID_Book) B.ID_Book, C.Name as category, SC.Name AS subcategory,
+S.Name AS series,
 B.Title, B.SubTitle, B.Publication_Date, B.Description
 	FROM Book AS B
 	INNER JOIN Series AS S
@@ -80,31 +83,6 @@ const selectAllBookAuthor = `
 	ON A.id_author = BA.id_author
 	WHERE id_book = $1
 	`;
-/*
-const selectAllEditionBooksWithoutBookLink = `
-	SELECT
-		P.name,BE.edition, BE.page_number, BE.isbn, BE.price, BE.image_link
-	FROM
-		book AS B
-		INNER JOIN booksubcategory AS BSC
-			ON BSC.id_booksubcategory = B.id_booksubcategory
-		INNER JOIN bookcategory AS BC
-			ON BC.id_bookcategory = BSC.id_booksubcategory
-		INNER JOIN series AS S
-			ON B.id_series = S.id_series
-		INNER JOIN book_author AS BA
-			ON BA.id_book = B.id_book
-		INNER JOIN author AS A
-			ON A.id_author = BA.id_author
-		INNER JOIN publisher_book AS PB
-			ON PB.id_book = B.id_book
-		INNER JOIN publisher AS P
-			ON P.id_publisher = PB.id_publisher
-		INNER JOIN bookedition AS BE
-			ON BE.id_publisher_book = PB.id_publisher_book
-		WHERE B.id_book = $1;
-`;
-*/
 
 const searchBooksByTitle = `
 	${selectAllBooks}
@@ -180,6 +158,32 @@ const updateDescription = `
 	UPDATE book SET description = $1
 	WHERE id_book = $2
 `;
+
+/*
+const selectAllEditionBooksWithoutBookLink = `
+	SELECT
+		P.name,BE.edition, BE.page_number, BE.isbn, BE.price, BE.image_link
+	FROM
+		book AS B
+		INNER JOIN booksubcategory AS BSC
+			ON BSC.id_booksubcategory = B.id_booksubcategory
+		INNER JOIN bookcategory AS BC
+			ON BC.id_bookcategory = BSC.id_booksubcategory
+		INNER JOIN series AS S
+			ON B.id_series = S.id_series
+		INNER JOIN book_author AS BA
+			ON BA.id_book = B.id_book
+		INNER JOIN author AS A
+			ON A.id_author = BA.id_author
+		INNER JOIN publisher_book AS PB
+			ON PB.id_book = B.id_book
+		INNER JOIN publisher AS P
+			ON P.id_publisher = PB.id_publisher
+		INNER JOIN bookedition AS BE
+			ON BE.id_publisher_book = PB.id_publisher_book
+		WHERE B.id_book = $1;
+`;
+*/
 
 module.exports = {
 	insertBook,
