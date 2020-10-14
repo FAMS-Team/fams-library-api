@@ -55,7 +55,8 @@ const getBooks = async (req, res) => {
 
     const selectedBooks = [];
     for (const bookSelected of books.rows){
-      const result = await db.query(queries.selectAllBookAuthor,[bookSelected.id_book]);
+      const result = await db.query(queries.selectAllBookAuthor,
+        [bookSelected.id_book]);
 
       selectedBooks.push({
         id_book: bookSelected.id_book,
