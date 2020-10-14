@@ -22,15 +22,16 @@ const createBookEdition = async (req, res) => {
           bookEdition.bookID,
           bookEdition.publisherID,
         ]);
-        publisherBookID = result.rows[0].id_publisher_book;
       }
 
-      if (image.length != 0) {
+      publisherBookID = result.rows[0].id_publisher_book;
+
+      if (bookEdition.imageLink.length) {
         const image = await cloudinary.uploader.upload(bookEdition.imageLink);
         bookEdition.imageLink = image.secure_url;
       }
 
-      if (book.length != 0) {
+      if (bookEdition.imageLink.length) {
         const book = await cloudinary.uploader.upload(bookEdition.bookLink);
         bookEdition.bookLink = book.secure_url;
       }
