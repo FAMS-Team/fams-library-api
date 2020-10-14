@@ -1,0 +1,113 @@
+CREATE TABLE PaymentMethod(
+	ID_PaymentMethod SERIAL PRIMARY KEY,
+	Method VARCHAR(20) NOT NULL
+)
+
+CREATE TABLE Series(
+	ID_Series SERIAL PRIMARY KEY,
+	Name VARCHAR(20)
+)
+
+CREATE TABLE Country (
+	ID_Country SERIAL PRIMARY KEY,
+	Name VARCHAR(30) NOT NULL
+)
+
+CREATE TABLE BookCategory(
+	ID_BookCategory SERIAL PRIMARY KEY,
+	Name VARCHAR(50) NOT NULL
+)
+
+CREATE TABLE BookSubcategory(
+	ID_BookSubcategory SERIAL PRIMARY KEY,
+	ID_BookCategory INT REFERENCES BookCategory(ID_BookCategory) NOT NULL,
+	Name VARCHAR(50) NOT NULL
+)
+
+CREATE TABLE Publisher(
+	ID_Publisher SERIAL PRIMARY KEY,
+	ID_Country INT REFERENCES Country(ID_Country) NOT NULL,
+	Name VARCHAR(30) NOT NULL
+)
+
+CREATE TABLE ContactType(
+	ID_ContactType SERIAL PRIMARY KEY,
+	Name VARCHAR(20) NOT NULL
+)
+
+CREATE TABLE Contact(
+	ID_Contact SERIAL PRIMARY KEY,
+	ID_ContactType INT REFERENCES ContactType(ID_ContactType) NOT NULL,
+	Name VARCHAR(30) NOT NULL,
+	Last_Name VARCHAR(30) NOT NULL,
+	Date_register TIMESTAMP NOT NULL DEFAULT NOW(),
+	Phone CHAR(10) NULL,
+	Email VARCHAR(50) NOT NULL UNIQUE,
+	Password BYTEA NOT NULL
+)
+
+CREATE TABLE Session (
+	ID_Session SERIAL PRIMARY KEY,
+	ID_Contact INT REFERENCES Contact(ID_Contact) NOT NULL,
+	RefreshToken TEXT NOT NULL
+)
+
+CREATE TABLE Author(
+	ID_Author SERIAL PRIMARY KEY,
+	ID_Country INT REFERENCES Country(ID_Country) NOT NULL,
+	Name VARCHAR(30) NOT NULL,
+	Last_Name VARCHAR(30) NOT NULL,
+	Date_Birth DATE NOT NULL,
+	Date_Death DATE NULL,
+	Description TEXT NOT NULL
+)
+
+CREATE TABLE Book (
+	ID_Book SERIAL PRIMARY KEY,
+	ID_BookSubcategory INT REFERENCES BookSubcategory(ID_BookSubcategory) NOT NULL,
+	ID_Series INT REFERENCES Series(ID_Series) NULL,
+	Title VARCHAR(50) NOT NULL,
+	Subtitle VARCHAR(50) NULL,
+	Publication_Date DATE NOT NULL,
+	Description TEXT NOT NULL
+)
+
+CREATE TABLE Book_Author(
+	ID_Book_Author SERIAL PRIMARY KEY,
+	ID_Author INT REFERENCES Author(ID_Author) NOT NULL,
+	ID_Book INT REFERENCES Book(ID_Book) NOT NULL
+)
+
+CREATE TABLE Publisher_Book(
+	ID_Publisher_Book SERIAL PRIMARY KEY,
+	ID_Book INT REFERENCES Book(ID_Book) NOT NULL,
+	ID_Publisher INT REFERENCES Publisher(ID_Publisher) NOT NULL
+)
+
+CREATE TABLE BookEdition(
+	ID_BookEdition SERIAL PRIMARY KEY,
+	ID_Publisher_Book INT REFERENCES Publisher_Book(ID_Publisher_Book) NOT NULL,
+	Edition INT NOT NULL,
+	Page_Number INT NOT NULL,
+	ISBN CHAR(13) NOT NULL,
+	Price MONEY NOT NULL,
+	Image_Link BYTEA NOT NULL,
+	Book_Link BYTEA NOT NULL
+)
+
+CREATE TABLE Reservation(
+	ID_Reservation SERIAL PRIMARY KEY,
+	ID_Contact INT REFERENCES Contact(ID_Contact) NOT NULL,
+	Start_Date DATE DEFAULT CURRENT_DATE NOT NULL,
+	End_Date DATE NOT NULL,
+	Date_Register TIMESTAMP DEFAULT NOW() NOT NULL
+)
+
+CREATE TABLE Reservation_Detail(
+	ID_Reservation_Detail SERIAL PRIMARY KEY,
+	ID_BookEdition INT REFERENCES BookEdition(ID_BookEdition) NOT NULL,
+	ID_Reservation INT REFERENCES Reservation(ID_Reservation) NOT NULL,
+	ID_PaymentMethod INT REFERENCES PaymentMethod(ID_PaymentMethod) NOT NULL,
+	Tax MONEY NOT NULL,
+	Total MONEY NOT NULL
+)
