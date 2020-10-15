@@ -51,7 +51,7 @@ const selectAllBooks = `
 	SELECT B.ID_Book, C.Name as category, SC.Name AS subcategory, S.Name AS series,
 	B.Title, B.SubTitle, B.Publication_Date, B.Description
 	FROM Book AS B
-	INNER JOIN Series AS S
+	LEFT JOIN Series AS S
 	ON B.ID_Series = S.ID_Series
 	INNER JOIN BookSubcategory AS SC
 	ON SC.ID_BookSubcategory = B.ID_BookSubcategory
